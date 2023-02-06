@@ -96,7 +96,7 @@ const Navbar = ({setNavBarModal, navbarModal}) => {
           <FiSearch size={18} onClick={() => console.log("search")} />
         </button>
         <NavLink
-          to="/Cart"
+          to="/cart"
           className={"relative text-white hover:text-white rounded-full"}
         >
           <span className="absolute top-[-10px] right-[-6px] bg-black rounded-full text-[8px] px-[6px] py-[3px] font-bold">
