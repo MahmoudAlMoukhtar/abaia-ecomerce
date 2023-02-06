@@ -6,7 +6,7 @@ const {
   getUserOrder,
   getAllUsersOrders,
 } = require("../controller/order");
-const authMW = require("../middleware/authMw");
+const authMW = require("../middleware/authMW");
 
 const router = express.Router();
 
