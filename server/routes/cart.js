@@ -5,7 +5,7 @@ const {
   upadteCart,
   emptyCart,
 } = require("../controller/cart");
-const authMW = require("../middleware/authMw");
+const authMW = require("../middleware/authMW");
 
 const router = express.Router();
 
