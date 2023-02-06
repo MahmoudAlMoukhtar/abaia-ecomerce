@@ -1,0 +1,60 @@
+{
+  "name": "react-state-building-script",
+  "version": "0.1.0",
+  "engines": {
+    "npm": ">=8.15.0 <9.0.0",
+    "node": ">=16.16.0 <17.0.0"
+  },
+  "proxy": "http://localhost:3001/",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "^4.11.4",
+    "@material-ui/data-grid": "^4.0.0-alpha.29",
+    "@material-ui/lab": "^4.0.0-alpha.61",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "animate.css": "^4.1.1",
+    "axios": "^1.2.6",
+    "cross-env": "^7.0.2",
+    "firebase": "4.2.0",
+    "history": "^5.0.0",
+    "jwt-decode": "^3.1.2",
+    "npm-run-all": "^4.1.5",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-icons": "^4.6.0",
+    "react-router-dom": "^6.0.0-beta.0",
+    "react-scripts": "3.4.1",
+    "react-spinners": "^0.13.6",
+    "react-stripe-checkout": "^2.6.3",
+    "swiper": "^8.3.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "start:app": "react-scripts  start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.13",
+    "postcss": "^8.4.19",
+    "tailwindcss": "^3.2.4"
+  }
+}
