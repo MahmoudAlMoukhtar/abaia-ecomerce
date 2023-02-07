@@ -1,8 +1,8 @@
 import React from "react";
 import "./topbar.css";
 // import { NotificationsNone, Language, Settings } from "@material-ui/icons";
-import {IoMdNotificationsOutline} from "react-icons/io";
-import {IoSettings} from "react-icons/io5";
+// import {IoMdNotificationsOutline} from "react-icons/io";
+// import {IoSettings} from "react-icons/io5";
 import {MdModeNight, MdOutlineLightMode} from "react-icons/md";
 export default function Topbar({theme, selectTheme}) {
   return (
