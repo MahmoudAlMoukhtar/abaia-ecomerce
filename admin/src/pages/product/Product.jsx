@@ -154,7 +154,7 @@ export default function Product() {
               <input type="file" id="file" style={{display: "none"}} />
             </div>
             <button
-              className="productButton"
+              className="bg-black text-white font-semibold py-2 px-6 rounded-md"
               type="submit"
               onClick={handleUpdate}
             >
