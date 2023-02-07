@@ -1,6 +1,11 @@
 {
-  "name": "lamaadmin",
+  "name": "admin",
   "version": "0.1.0",
+  "engines": {
+    "npm": ">=8.15.0 <9.0.0",
+    "node": ">=16.16.0 <17.0.0"
+  },
+  "proxy": "http://localhost:3001/",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.4",
