@@ -5,7 +5,7 @@ const getProductsCartByIdUser = async (req, res) => {
   try {
     let productsDetailes = [];
     const productsCart = await Cart.findOne({idUser: req.userId});
-
+    //console.log("testasdasd");
     if (productsCart.products.length > 0) {
       for (let product of productsCart.products) {
         if (Object.keys(product).length < 1) continue;
@@ -14,6 +14,7 @@ const getProductsCartByIdUser = async (req, res) => {
         productsDetailes.push({
           ...detailProduct._doc,
           quantity: product.quantity,
+          standard: product.standard,
         });
       }
     }

@@ -12,9 +12,9 @@ const getProducts = async (req, res) => {
 };
 
 const createProduct = async (req, res) => {
-  const {name, price, category, description, stock, selectedFile} = req.body;
+  const {name, price, category, description, stock, image} = req.body;
   try {
-    const uploadedCloudniary = await cloudinary.uploader.upload(selectedFile, {
+    const uploadedCloudniary = await cloudinary.uploader.upload(image, {
       upload_preset: "ml_default",
     });
     const newProduct = await new Product({

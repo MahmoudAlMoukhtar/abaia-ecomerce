@@ -18,6 +18,10 @@ const productSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    ThumImages: {
+      type: [String],
+      default: [],
+    },
     favoraitCount: {
       type: Number,
       default: 0,
@@ -36,6 +40,13 @@ const productSchema = mongoose.Schema(
     active: {
       type: Boolean,
       default: true,
+    },
+    standard: {
+      type: {
+        size: String,
+        length: String,
+        design: String,
+      },
     },
   },
   {timestamps: true}

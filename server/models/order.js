@@ -8,11 +8,22 @@ const orderSechma = mongooose.Schema(
     Username: {
       type: String,
     },
-    products: {
-      type: [Object],
-      default: [],
+    nameProduct: {
+      type: String,
     },
-    amount: {
+    idProduct: {
+      type: String,
+    },
+    sizeProduct: {
+      type: String,
+    },
+    lengthProduct: {
+      type: String,
+    },
+    designProduct: {
+      type: String,
+    },
+    price: {
       type: Number,
       required: true,
     },

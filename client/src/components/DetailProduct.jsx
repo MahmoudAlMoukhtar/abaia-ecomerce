@@ -7,7 +7,7 @@ import {MdFavoriteBorder} from "react-icons/md";
 import {GrStar} from "react-icons/gr";
 import * as api from "../api/index";
 
-import {InputLabel, MenuItem, Select} from "@material-ui/core";
+import {Box, InputLabel, MenuItem, Select, TextField} from "@material-ui/core";
 import {Rating} from "@material-ui/lab";
 import StarRating from "./RaitingStars";
 
@@ -51,11 +51,11 @@ const Counter = ({counter, setCounter}) => {
 
 const Selectes = ({standard, setStandard}) => {
   return (
-    <div className="flex flex-col items-end">
+    <div className="flex flex-col gap-4 items-end">
       <InputLabel id="demo-simple-select-helper-label">القياس</InputLabel>
       <Select
         className="w-40"
-        value={"S"}
+        value={standard.size}
         onChange={e => setStandard({...standard, size: e.target.value})}
         displayEmpty
         inputProps={{"aria-label": "Without label"}}
@@ -69,7 +69,7 @@ const Selectes = ({standard, setStandard}) => {
       <InputLabel id="demo-simple-select-helper-label">الطول</InputLabel>
       <Select
         className="w-40"
-        value={50}
+        value={standard.length}
         onChange={e => setStandard({...standard, length: e.target.value})}
         displayEmpty
         inputProps={{"aria-label": "Without label"}}
@@ -85,7 +85,7 @@ const Selectes = ({standard, setStandard}) => {
       </InputLabel>
       <Select
         className="w-40"
-        value={"مفتوحة"}
+        value={standard.design}
         onChange={e => setStandard({...standard, design: e.target.value})}
         displayEmpty
         inputProps={{"aria-label": "Without label"}}
@@ -131,7 +131,7 @@ const DetailProduct = ({addToCart, updateQuantity}) => {
       }
     >
       <div id="textDetailProduct" className="w-full p-2 text-sm text-end w-1/2">
-        <div className="flex flex-col gap-2 items-end">
+        <div className="flex flex-col gap-6 items-end">
           <div className="flex justify-between items-center w-full">
             <MdFavoriteBorder
               size={40}
@@ -154,21 +154,48 @@ const DetailProduct = ({addToCart, updateQuantity}) => {
           <p>{product.description}</p>
           <p>({product.offer})</p>
           <Selectes standard={standard} setStandard={setStandard} />
+
+          <input
+            type="text"
+            name="message"
+            id="message"
+            autocomplete="given-name"
+            placeholder="Write message"
+            class="mt-1 block w-full rounded border-2 border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm  text-end text-black p-1"
+          />
+          <button
+            className=" py-2 px-6 bg-black text-white font-semibold"
+            disabled={counter === 0}
+            onClick={async () => {
+              const response = await api.updateCart({
+                idProduct: product._id,
+                standard,
+                quantity: counter,
+              });
+
+              navigate("/cart");
+            }}
+          >
+            أضف إلى السلة
+          </button>
         </div>
       </div>
       <div id="imagesProduct" className="flex flex-col items-center gap-4">
-        <div id="mainImage" className="w-[500px]">
+        <div
+          id="mainImage"
+          className="w-[600px] h-[600px] transition duration-200"
+        >
           <img
             src={mainImage}
             alt="mainProduct"
-            className="w-full rounded-xl"
+            className="w-full h-full rounded-xl transition duration-200"
           />
         </div>
-        <div className="flex justif-center gap-6 items-center">
+        <div className="flex justif-center gap-2 items-center w-full">
           {product?.ThumImages?.map(img => (
             <img
               src={img}
-              className="w-40 rounded-xl cursor-pointer"
+              className="w-36 h-36 rounded-xl cursor-pointer"
               onClick={() => setMainImage(img)}
             />
           ))}

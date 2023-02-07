@@ -17,7 +17,7 @@ const MyData = ({user}) => {
   const handleSubmit = async e => {
     e.preventDefault();
 
-    // const {data} = await api.signin(formData);
+    //const {data} = await api.upadteUserData(formData);
     // localStorage.setItem("userEcommerce", JSON.stringify(data));
     // navigait("/");
   };

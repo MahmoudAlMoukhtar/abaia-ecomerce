@@ -1,6 +1,6 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
-
+import * as api from "../../api/index";
 const styles = {
   navLink:
     "flex justify-end gap-2 items-center py-4 border-b-[0.5px] border-gray-600 w-full pr-2",
@@ -15,7 +15,15 @@ const initialState = {
   confirmPassword: "",
 };
 
-const MyOrders = () => {
+const Order = ({order}) => {
+  return (
+    <div>
+      <h1>{order.nameProduct}</h1>
+    </div>
+  );
+};
+
+const MyOrders = ({user}) => {
   const [formData, setFormData] = useState(initialState);
   const [showPassword, setShowPassword] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
@@ -32,9 +40,35 @@ const MyOrders = () => {
     setFormData({...formData, [e.target.name]: e.target.value});
   };
 
+  const [dataOrders, setDataOrders] = useState();
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const fun = async () => {
+      try {
+        const {data} = await api.getUserOrder(user.id);
+        setDataOrders(data);
+        console.log(data);
+      } catch (e) {
+        if (e) setError(e);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fun();
+  }, []);
+
+  if (error) throw error;
+  if (loading)
+    return <h1 className="text-center font-bold text-5xl my-40">Loading...</h1>;
+
   return (
     <section>
-      <h1>لا يوجد طلبات!</h1>
+      <ul>
+        {dataOrders.map(order => (
+          <Order order={order} />
+        ))}
+      </ul>
     </section>
   );
 };

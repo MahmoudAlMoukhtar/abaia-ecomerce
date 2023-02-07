@@ -1,40 +1,69 @@
-import React from "react";
+import React, {useState} from "react";
 
 const styles = {
   cardItemCart:
-    "cart-item bg-white flex flex-col px-4 sm:flex-row justify-between gap-2 sm:items-center shadow-2xl py-2 transition duration-200 cursor-default	border-2 border-gray-600 font-bold text-sm",
+    "cart-item bg-white flex flex-col-reverse px-4 sm:flex-row justify-end gap-4 sm:gap-20 sm:items-center shadow-2xl py-2 transition duration-200 cursor-default	border-2 border-gray-600 text-sm",
+};
+
+const Counter = ({counter, setCounter}) => {
+  return (
+    <div className="bg-gray-100 rounded-xl flex justify-between items-center lg:flex-row flex-col">
+      <button
+        onClick={() => {
+          setCounter(currCounter => {
+            if (currCounter == 0) {
+              return 0;
+            } else {
+              return currCounter - 1;
+            }
+          });
+        }}
+        id="btn-minus-count"
+        className="hover:bg-gray-700 text-white font-semibold bg-black px-4 rounded-lg"
+      >
+        <p className="text-2xl font-bold ">-</p>
+      </button>
+      <p className="text-smleading-5font-medium text-gray-900">
+        <span id="" className="font-bold px-6">
+          {counter}
+        </span>
+      </p>
+      <button
+        onClick={() => {
+          setCounter(currCounter => {
+            return currCounter + 1;
+          });
+        }}
+        id="btn-add-count"
+        className="hover:bg-gray-700 text-white font-semibold bg-black px-4 rounded-lg"
+      >
+        <p className="text-2xl">+</p>
+      </button>
+    </div>
+  );
 };
 
 const CartItem = ({itemInCart, updateQuantity}) => {
-  const {price, name, image, quantity} = itemInCart;
+  const {price, name, image, quantity, standard} = itemInCart;
+  const [counter, setCounter] = useState(quantity);
+
   //const {size} = skus.find(s => s.sku === sku);
   return (
     <li className={styles.cardItemCart}>
+      <Counter counter={counter} setCounter={setCounter} />
+      <p>KWD {price}</p>
+      <p>D-57</p>
+      <div className="flex justify-end text-end flex-col items-end gap-1">
+        <h3 className="font-bold ">{name}</h3>
+        <p>{standard.size}:المقياس</p>
+        <p>{standard.length}:الطول</p>
+        <p>{standard.design}:التصميم الأمامي</p>
+      </div>
       <img
         src={image}
         alt={name}
-        className="img-cart-item w-[80] h-80 sm:w-[100px] sm:h-[100px] lg:w-[200px] lg:h-[200px]"
+        className="img-cart-item w-[80] h-80 sm:w-[100px] sm:h-[100px] lg:w-[200px] lg:h-[200px] rounded-md"
       />
-      <div className="grid grid-cols-1 sm:grid-cols-5 my-4 text-sm gap-5 gap-2 text-start sm:text-center font-semibold md:font-bold  text-sm w-[800px]">
-        <h3>{name}</h3>
-        <p>${price}</p>
-        <p>Quantity: {quantity}</p>
-        <p>
-          <select
-            aria-label={`Select quantity for ${name}`}
-            onChange={e => console.log("update")}
-            value={quantity}
-            className="border-[1px] border-gray-400 rounded p-1"
-          >
-            <option value="0">Remove</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-          </select>
-        </p>
-      </div>
     </li>
   );
 };

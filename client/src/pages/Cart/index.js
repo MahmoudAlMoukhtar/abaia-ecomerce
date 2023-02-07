@@ -16,6 +16,7 @@ const CartPage = ({cart, updateQuantity}) => {
       try {
         const {data} = await api.fetchCart();
         setCartProducts(data);
+        console.log(data);
       } catch (e) {
         if (e) setError(e);
       } finally {
@@ -25,8 +26,9 @@ const CartPage = ({cart, updateQuantity}) => {
     fun();
   }, []);
 
-  if (loading) return <Spinner />;
   if (error) throw error;
+  if (loading)
+    return <h1 className="text-center font-bold text-5xl my-40">Loading...</h1>;
 
   //console.log("products", cartProducts);
 
@@ -36,37 +38,54 @@ const CartPage = ({cart, updateQuantity}) => {
   // );
   return (
     <React.Fragment>
-      <div className="bg-[#03271b] py-12">
-        <h1 className="animate__animated animate__wobble text-2xl md:text-5xl sm:text-4xl font-semibold text-white text-center">
-          Cart Page
-        </h1>
-        <div className="flex flex-col justify-center items-center w-full">
-          <h1 className="font-semibold text-lg text-center">
-            {cartProducts.length >= 1 && (
-              <div className="my-4 text-white text-2xl md:text-lg sm:text-4xl">
-                <span className="text-black font-bold px-2 mx-2 border-2 bg-[#eab308] border-black rounded-full shadow shadow-2xl">
-                  {cartProducts.length}
-                </span>
-                Item{cartProducts.length > 1 ? "s" : ""} in your cart
-              </div>
-            )}
-          </h1>
-          {cartProducts?.length > 0 && (
-            <Pay
-              cartProducts={cartProducts}
-              setCartProducts={setCartProducts}
-            />
-          )}
+      <div className="pt-12">
+        <div>
+          <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
+            سلة التسوق
+          </h2>
+          <div className="flex justify-center items-center gap-2 text-gray-400 tracking-[-3px] ">
+            <div className="w-20 h-[2px] bg-gray-400" />
+            {"///"}
+            <div className="w-20 h-[2px] bg-gray-400" />
+          </div>
         </div>
+        <div className="flex flex-col justify-center items-center w-full"></div>
       </div>
 
       <section className="flex flex-col gap-8 mt-10">
         {cartProducts.length === 0 && (
-          <p className="font-semibold text-2xl text-center">
-            Your cart is <span className="text-red-800">empty</span>
-          </p>
+          <h1 className="text-center font-bold text-2xl mb-20">
+            لا يوجد منتجات فى سلة التسوق
+          </h1>
         )}
-        <div id="cart-container" className="flex flex-col gap-6 mx-8">
+        <div
+          id="cart-container"
+          className="flex flex-col-reverse lg:flex-row justify-center gap-10  mx-4"
+        >
+          <div className="flex flex-col gap-2 items-end text-end text-md bg-white shadow-lg p-2 w-full lg:w-60">
+            <div className="flex flex-row-reverse justify-between items-center w-full">
+              <p>الاجمالي الفرعي</p>
+              <p>KWD 55.55</p>
+            </div>
+            <div className="flex flex-row-reverse justify-between items-center w-full">
+              <p>الشحن</p>
+              <p>تحسب عند الدفع</p>
+            </div>
+            <div className="flex flex-row-reverse justify-between items-center w-full">
+              <p>الإجمالي</p>
+              <p>تحسب عند الدفع</p>
+            </div>
+            <div className="flex justify-between items-center w-full">
+              <p>الشحن</p>
+              <p>تحسب عند الدفع</p>
+            </div>
+            {cartProducts?.length > 0 && (
+              <Pay
+                cartProducts={cartProducts}
+                setCartProducts={setCartProducts}
+              />
+            )}
+          </div>
           <ul>
             {cartProducts?.map(i => (
               <CartItem

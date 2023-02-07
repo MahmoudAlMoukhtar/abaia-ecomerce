@@ -3,6 +3,7 @@ const Product = require("../models/product");
 
 const getUserOrder = async (req, res) => {
   const {id: _id} = req.params;
+  console.log(_id);
   try {
     const ordersUser = await Order.find({idUser: _id});
 
@@ -24,6 +25,7 @@ const getAllUsersOrders = async (req, res) => {
 
 const createOrder = async (req, res) => {
   const newOrder = req.body;
+  console.log(newOrder);
   try {
     const order = await new Order(newOrder);
     const savedOrder = await order.save();

@@ -67,14 +67,7 @@ export default function App() {
             path="/:category/:id"
             element={<DetailProduct setNavBarModal={setNavBarModal} />}
           />
-          <Route
-            path="/cart"
-            element={
-              <h1 className="text-center font-bold text-5xl my-40">
-                عذراً هذه الصفحة قيد التطوير
-              </h1>
-            }
-          />
+          <Route path="/cart" element={<CartPage />} />
         </Routes>
         <Footer />
       </div>

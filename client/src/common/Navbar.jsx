@@ -100,7 +100,7 @@ const Navbar = ({setNavBarModal, navbarModal}) => {
           className={"relative text-white hover:text-white rounded-full"}
         >
           <span className="absolute top-[-10px] right-[-6px] bg-black rounded-full text-[8px] px-[6px] py-[3px] font-bold">
-            {0}
+            {countCartProducts}
           </span>
           <FiShoppingCart color="black" size={18} />
         </NavLink>

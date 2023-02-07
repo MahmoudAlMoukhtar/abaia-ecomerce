@@ -1,0 +1,50 @@
+.orderList{
+    flex: 4;
+}
+
+.orderListItem{
+    display: flex;
+    align-items: center;
+}
+
+.orderListImg {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+  }
+
+.containerActionsBtns{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.orderListEdit{
+    border: none;
+    border-radius: 10px;
+    padding: 5px 10px;
+    background-color: #3bb077;
+    color: white;
+    cursor: pointer;
+    
+}
+
+.orderListDelete{
+    border: none;
+    border-radius: 10px;
+    padding: 5px 10px;
+    background-color: rgb(160, 32, 32);
+    color: white;
+    cursor: pointer;
+}
+
+.addorderList{
+    color: white;
+    padding: 8px 0;
+    width: 100%;
+    background-color: #3bb077;
+    cursor: pointer;
+}

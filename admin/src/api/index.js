@@ -1,15 +1,17 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://abaia-ecomerce.vercel.app/api",
+  baseURL: "http://localhost:3001/api",
 });
+/* baseURL: "https://socialmedia-mernstack.vercel.app/api", */
+/*  https://socialmedia-mernstack.vercel.app/api*/
 API.interceptors.request.use(req => {
-  //console.log(localStorage.getItem("userEcommerce"));
   if (localStorage.getItem("userEcommerce")) {
     req.headers.Authorization = `Bearer ${
       JSON.parse(localStorage.getItem("userEcommerce")).token
     }`;
   }
+
   return req;
 });
 //CRUD POSTS
@@ -38,14 +40,23 @@ export const updateProfile = (id, updates) =>
 //products
 export const fetchProducts = () => API.get("/products");
 export const fetchProductById = id => API.get(`/products/${id}`);
+export const deleteProductById = id => API.delete(`/products/${id}`);
+export const createProduct = formData => API.post("/products", formData);
+export const updateProduct = (id, updates) =>
+  API.put(`/products/${id}`, updates);
 //cart
 export const createCart = () => API.post("/cart");
 export const updateCart = updates => API.put("/cart", updates);
-export const emptyCart = () => API.patch("/cart");
 export const fetchCart = () => API.get("/cart");
 //payment
 export const createPay = data => API.post("/payment", data);
-//order
-export const getUserOrder = id => API.get(`/orders/${id}`);
-export const createOrder = order => API.post(`/orders`, order);
-export const getMonthlyIncome = () => API.get(`/orders/income`);
+
+//users
+export const fetchAllUsers = () => API.get("/user");
+export const fetchUserById = id => API.get(`/user/${id}`);
+export const deleteUserById = id => API.delete(`/user/${id}`);
+
+//orders
+export const fetchAllOrders = () => API.get(`/orders`);
+export const deleteOrderById = id => API.get(`/orders/${id}`);
+export const getMonthlyIncome = () => API.get(`/income`);
