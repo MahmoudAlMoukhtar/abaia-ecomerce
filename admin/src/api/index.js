@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:3001/api",
+  baseURL: "https://abaia-ecomerce.vercel.app/api",
 });
 /* baseURL: "https://socialmedia-mernstack.vercel.app/api", */
 /*  https://socialmedia-mernstack.vercel.app/api*/
