@@ -19,7 +19,7 @@ import Profile from "./pages/Profile/index.js";
 import MyData from "./pages/Profile/MyData";
 import jwt_decode from "jwt-decode";
 import PrivaitRoute from "./components/PrivaitRoute";
-import GoSellDemo from "./components/GoSellDemo";
+//import GoSellDemo from "./components/GoSellDemo";
 import {List, ListItem, ListItemText} from "@material-ui/core";
 import SearchPage from "./pages/ٍSearch";
 export default function App() {
