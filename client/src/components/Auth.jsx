@@ -2,8 +2,6 @@ import React, {useEffect, useState} from "react";
 import {BiShowAlt, BiHide} from "react-icons/bi";
 import {Navigate, useNavigate} from "react-router-dom";
 import * as api from "../api/index";
-//import {gapi} from "gapi-script";
-//import {GoogleLogin} from "react-google-login";
 
 const initialState = {
   fullName: "",
