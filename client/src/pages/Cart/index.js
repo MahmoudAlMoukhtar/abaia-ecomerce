@@ -90,13 +90,6 @@ const CartPage = ({updateQuantity}) => {
                 <p>الشحن</p>
                 <p>تحسب عند الدفع</p>
               </div>
-              {cartProducts?.length > 0 && (
-                <GoSellDemo
-                  user={user}
-                  cartProducts={cartProducts}
-                  setCartProducts={setCartProducts}
-                />
-              )}
             </div>
           )}
           <ul>
