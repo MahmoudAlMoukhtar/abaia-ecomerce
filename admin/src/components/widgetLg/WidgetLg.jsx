@@ -33,9 +33,9 @@ export default function WidgetLg() {
       <table className="widgetLgTable">
         <tr className="widgetLgTr">
           <th className="widgetLgTh">Customer</th>
+          <th className="widgetLgTh">Product</th>
           <th className="widgetLgTh">Date</th>
           <th className="widgetLgTh">Amount</th>
-          <th className="widgetLgTh">Status</th>
         </tr>
 
         {data.map(order => (
@@ -43,13 +43,13 @@ export default function WidgetLg() {
             <td className="widgetLgUser">
               <span className="widgetLgName text-xs">{order.Username}</span>
             </td>
+            <td className="widgetLgStatus">
+              <Button type={order.nameProduct} />
+            </td>
             <td className="widgetLgDate text-xs">
               {moment(order.createdAt).format("YYYY-MM-DD")}
             </td>
             <td className="widgetLgAmount">{order.price}</td>
-            <td className="widgetLgStatus">
-              <Button type={order.status} />
-            </td>
           </tr>
         ))}
       </table>

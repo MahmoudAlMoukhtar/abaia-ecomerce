@@ -5,6 +5,7 @@ import * as api from "../api/index";
 import {IoPersonOutline} from "react-icons/io5";
 import {FiShoppingCart, FiSearch, FiHeart} from "react-icons/fi";
 import {BsArrowDownShort} from "react-icons/bs";
+import jwt_decode from "jwt-decode";
 const activeStyle = {
   color: "white",
   backgroundColor: "black",
@@ -19,19 +20,25 @@ const styles = {
   linkPages: "p-[8px]  transition duration-100 borderr",
 };
 
-const Navbar = ({setNavBarModal, navbarModal}) => {
-  const user = JSON.parse(localStorage.getItem("userEcommerce"));
+const Navbar = ({show, setShow, setNavBarModal, navbarModal}) => {
+  const user = jwt_decode(
+    JSON.parse(localStorage.getItem("userEcommerce")).token
+  );
   const [countCartProducts, setCountCartProducts] = useState();
+  const [countFavProducts, setCountFavProducts] = useState();
   const navigait = useNavigate();
   useEffect(() => {
     const fun = async () => {
       const {data} = await api.fetchCart();
       setCountCartProducts(data.length);
+      const res = await api.fetchFavoraitProducts(user.id);
+      console.log(res.data);
+      setCountFavProducts(res.data.length);
     };
     fun();
   }, []);
   return (
-    <nav className="flex flex-row-reverse justify-between items-center p-8 py-4 w-[100%]">
+    <nav className="flex flex-row-reverse justify-between items-center p-8 py-4 w-[100%] ">
       <HiMenuAlt1
         size={30}
         onClick={() => setNavBarModal(!navbarModal)}
@@ -49,16 +56,21 @@ const Navbar = ({setNavBarModal, navbarModal}) => {
         >
           الصفحة الرئيسية
         </NavLink>
+
         <NavLink
           style={({isActive}) => (isActive ? activeStyle : undefined)}
           to="/كل المنتجات"
           className={styles.linkPages}
+          onMouseOver={() => {
+            //setShow(true);
+          }}
+          onMouseOut={() => {
+            //setShow(false);
+          }}
         >
           الأقسام
-          <span className="absolute top-[-10px] right-[-20px]">
-            <BsArrowDownShort color="black" />
-          </span>
         </NavLink>
+
         <NavLink
           style={({isActive}) => (isActive ? activeStyle : undefined)}
           to="/about"
@@ -69,7 +81,7 @@ const Navbar = ({setNavBarModal, navbarModal}) => {
 
         <NavLink
           style={({isActive}) => (isActive ? activeStyle : undefined)}
-          to="/blogs"
+          to="/منتجات جديدة"
           className={styles.linkPages}
         >
           منتجات جديدة
@@ -92,9 +104,12 @@ const Navbar = ({setNavBarModal, navbarModal}) => {
         >
           <IoPersonOutline size={18} />
         </NavLink>
-        <button className="hidden absolute sm:flex sm:static cursor-pointer">
+        <NavLink
+          to="/search"
+          className="hidden absolute sm:flex sm:static cursor-pointer"
+        >
           <FiSearch size={18} onClick={() => console.log("search")} />
-        </button>
+        </NavLink>
         <NavLink
           to="/cart"
           className={"relative text-white hover:text-white rounded-full"}
@@ -105,10 +120,13 @@ const Navbar = ({setNavBarModal, navbarModal}) => {
           <FiShoppingCart color="black" size={18} />
         </NavLink>
         <NavLink
-          to="/favorait"
+          to="/account/favorait"
           className={"relative text-white hover:text-white rounded-full"}
         >
-          <FiHeart size={18} />
+          <FiHeart size={18} color="black" />
+          <span className="absolute top-[-10px] right-[-6px] bg-black rounded-full text-[8px] px-[6px] py-[3px] font-bold">
+            {countFavProducts}
+          </span>
         </NavLink>
       </div>
     </nav>
@@ -123,4 +141,10 @@ export default Navbar;
           onClick={() => setNavBarModal(!navbarModal)}
           className="cursor-pointer"
         />
+*/
+
+/* 
+<span className="absolute top-[10px] right-[-20px] ">
+            <BsArrowDownShort color="black" />
+          </span>
 */

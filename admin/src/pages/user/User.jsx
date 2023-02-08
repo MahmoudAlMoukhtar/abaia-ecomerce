@@ -32,6 +32,13 @@ export default function User() {
     };
     makeRequest();
   }, []);
+
+  const handleUpdate = async e => {
+    e.preventDefault();
+    const resUserUpdated = await api.updateUserById(userId, userData);
+    setuserData(resUserUpdated.data);
+  };
+
   if (error) return <h1 className="text-red-800">error</h1>;
   if (loading) return <h1 className="text-red-800">Loading</h1>;
   return (
@@ -62,23 +69,21 @@ export default function User() {
           <div className="userShowBottom">
             <span className="userShowTitle">Account Details</span>
             <div className="userShowInfo">
-              <span className="userShowInfoTitle">annabeck99</span>
+              <span className="userShowInfoTitle">
+                {userData.firstName + " " + userData.lastName}
+              </span>
             </div>
             <div className="userShowInfo">
-              <span className="userShowInfoTitle">10.12.1999</span>
+              <span className="userShowInfoTitle">{userData._id}</span>
             </div>
             <span className="userShowTitle">Contact Details</span>
             <div className="userShowInfo">
               <HiDevicePhoneMobile />
-              <span className="userShowInfoTitle">+1 123 456 67</span>
+              <span className="userShowInfoTitle">{userData.mobileNumber}</span>
             </div>
             <div className="userShowInfo">
               <HiOutlineMail />
               <span className="userShowInfoTitle">{userData.email}</span>
-            </div>
-            <div className="userShowInfo">
-              <HiOutlineLocationMarker />
-              <span className="userShowInfoTitle">New York | USA</span>
             </div>
           </div>
         </div>
@@ -87,19 +92,25 @@ export default function User() {
           <form className="userUpdateForm">
             <div className="userUpdateLeft">
               <div className="userUpdateItem">
-                <label>Username</label>
+                <label>First Name</label>
                 <input
                   type="text"
                   placeholder="annabeck99"
                   className="userUpdateInput"
+                  onChange={e =>
+                    setuserData({...userData, firstName: e.target.value})
+                  }
                 />
               </div>
               <div className="userUpdateItem">
-                <label>Full Name</label>
+                <label>Last Name</label>
                 <input
                   type="text"
                   placeholder="Anna Becker"
                   className="userUpdateInput"
+                  onChange={e =>
+                    setuserData({...userData, lastName: e.target.value})
+                  }
                 />
               </div>
               <div className="userUpdateItem">
@@ -108,6 +119,9 @@ export default function User() {
                   type="text"
                   placeholder="annabeck99@gmail.com"
                   className="userUpdateInput"
+                  onChange={e =>
+                    setuserData({...userData, email: e.target.value})
+                  }
                 />
               </div>
               <div className="userUpdateItem">
@@ -116,14 +130,9 @@ export default function User() {
                   type="text"
                   placeholder="+1 123 456 67"
                   className="userUpdateInput"
-                />
-              </div>
-              <div className="userUpdateItem">
-                <label>Address</label>
-                <input
-                  type="text"
-                  placeholder="New York | USA"
-                  className="userUpdateInput"
+                  onChange={e =>
+                    setuserData({...userData, mobileNumber: e.target.value})
+                  }
                 />
               </div>
             </div>
@@ -141,7 +150,9 @@ export default function User() {
                 <label htmlFor="file"></label>
                 <input type="file" id="file" style={{display: "none"}} />
               </div>
-              <button className="userUpdateButton">Update</button>
+              <button className="userUpdateButton" onClick={handleUpdate}>
+                Update
+              </button>
             </div>
           </form>
         </div>
@@ -157,4 +168,21 @@ export default function User() {
 <MailOutline className="userShowIcon" />
 <LocationSearching className="userShowIcon" />
 <Publish className="userUpdateIcon" />
+*/
+
+/* 
+ <div className="userShowInfo">
+              <HiOutlineLocationMarker />
+              <span className="userShowInfoTitle">{userData.city}</span>
+            </div>
+*/
+/* 
+<div className="userUpdateItem">
+                <label>Address</label>
+                <input
+                  type="text"
+                  placeholder="New York | USA"
+                  className="userUpdateInput"
+                />
+              </div>
 */

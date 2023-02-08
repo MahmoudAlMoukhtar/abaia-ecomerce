@@ -15,6 +15,7 @@ const getProductsCartByIdUser = async (req, res) => {
           ...detailProduct._doc,
           quantity: product.quantity,
           standard: product.standard,
+          idProduct: product.idProduct,
         });
       }
     }
@@ -74,9 +75,30 @@ const emptyCart = async (req, res) => {
   }
 };
 
+const deleteProductById = async (req, res) => {
+  const {id: _id} = req.params;
+  try {
+    let cart = await Cart.findOne({idUser: req.userId});
+    const index = cart.products.findIndex(p => p.idProduct === _id);
+    cart.products.splice(index, 1);
+    //console.log(_id);
+    const updatedCartProducts = await Cart.findOneAndUpdate(
+      {idUser: req.userId},
+      cart,
+      {
+        new: true,
+      }
+    );
+    res.status(200).json(updatedCartProducts);
+  } catch (err) {
+    res.status(400).send({message: err.message});
+  }
+};
+
 module.exports = {
   getProductsCartByIdUser,
   createCart,
   upadteCart,
   emptyCart,
+  deleteProductById,
 };

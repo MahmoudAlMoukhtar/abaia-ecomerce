@@ -29,7 +29,7 @@ const ShopPage = ({addToCart, setNavBarModal}) => {
       } else {
         return 0;
       }
-    } else if (filterData === "lastest") {
+    } else if (filterData === "lastest" || category === "منتجات جديدة") {
       if (a.createdAt > b.createdAt) {
         return -1;
       } else if (a.createdAt < b.createdAt) {
@@ -59,11 +59,11 @@ const ShopPage = ({addToCart, setNavBarModal}) => {
     setPage(p);
     _DATA.jump(p);
   };
-
+  console.log(category);
   if (error) throw error;
   if (loading)
     return <h1 className="text-center font-bold text-5xl my-40">Loading...</h1>;
-  if (!finded && category !== "كل المنتجات")
+  if (!finded && category !== "كل المنتجات" && category !== "منتجات جديدة")
     return (
       <h1 className="text-center font-bold text-5xl my-40">Not Fount Page!</h1>
     );

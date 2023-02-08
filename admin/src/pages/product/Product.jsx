@@ -18,6 +18,8 @@ export default function Product() {
       try {
         const response = await api.fetchProductById(productId);
         setDataProduct(response.data);
+        // const responseSales = await api.getAllSalesProductById(productId);
+        // console.log(responseSales.data);
       } catch (err) {
         setError(true);
       } finally {
@@ -65,7 +67,11 @@ export default function Product() {
       </div>
       <div className="productTop">
         <div className="productTopLeft">
-          <Chart data={dataProduct} dataKey="Sales" title="Sales Performance" />
+          <Chart
+            data={dataProduct.numberSell}
+            dataKey="numberSell"
+            title="Sales Performance"
+          />
         </div>
         <div className="productTopRight">
           <div className="productInfoTop">
@@ -79,9 +85,7 @@ export default function Product() {
             </div>
             <div className="productInfoItem">
               <span className="productInfoKey">sales:</span>
-              <span className="productInfoValue">
-                {dataProduct.sales > 0 ? dataProduct.sales : 0}
-              </span>
+              <span className="productInfoValue">{dataProduct.numberSell}</span>
             </div>
             <div className="productInfoItem">
               <span className="productInfoKey">active:</span>

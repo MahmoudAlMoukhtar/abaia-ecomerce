@@ -55,7 +55,7 @@ const ProductsSection = () => {
       </div>
       <ul className="flex justify-center gap-10 items-start w-full">
         <button
-          className="pb-7 transition duration-200 border-white border-b-4 hover:border-black"
+          className="pb-7 transition duration-200 border-white border-b-4 hover:border-black borderr"
           onClick={() => {
             setFilterData("sales");
           }}
@@ -63,13 +63,13 @@ const ProductsSection = () => {
           الأكثر مبيعاً
         </button>
         <button
-          className="pb-7 transition duration-200 border-white border-b-4 hover:border-black"
+          className="pb-7 transition duration-200 border-white border-b-4 hover:border-black borderr"
           onClick={() => setFilterData("new")}
         >
           منتجات جديدة
         </button>
         <button
-          className="pb-7 transition duration-200 border-white border-b-4 hover:border-black"
+          className="pb-7 transition duration-200 border-white border-b-4 hover:border-black borderr"
           onClick={() => setFilterData("deffrent")}
         >
           منتجات مميزة

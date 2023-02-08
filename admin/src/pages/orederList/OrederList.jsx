@@ -27,7 +27,7 @@ export default function OrederList() {
 
   const handleDelete = async id => {
     const res = await api.deleteOrderById(id);
-    setDataOrders(data.filter(item => item.id !== res.data._id));
+    setDataOrders(data.filter(item => item.id !== id));
   };
 
   if (error) return <h1 className="text-red-800">error</h1>;
@@ -129,9 +129,6 @@ export default function OrederList() {
         //console.log(params.row);
         return (
           <div className="containerActionsBtns">
-            <Link to={"/order/" + params.row._id}>
-              <button className="orderListEdit">Accept</button>
-            </Link>
             <button
               className="orderListDelete"
               onClick={() => handleDelete(params.row._id)}

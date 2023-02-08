@@ -6,6 +6,7 @@ import useDetailFetch from "../services/useDetailFetch";
 import {MdFavoriteBorder} from "react-icons/md";
 import {GrStar} from "react-icons/gr";
 import * as api from "../api/index";
+import jwt_decode from "jwt-decode";
 
 import {Box, InputLabel, MenuItem, Select, TextField} from "@material-ui/core";
 import {Rating} from "@material-ui/lab";
@@ -51,53 +52,62 @@ const Counter = ({counter, setCounter}) => {
 
 const Selectes = ({standard, setStandard}) => {
   return (
-    <div className="flex flex-col gap-4 items-end">
-      <InputLabel id="demo-simple-select-helper-label">القياس</InputLabel>
-      <Select
-        className="w-40"
-        value={standard.size}
-        onChange={e => setStandard({...standard, size: e.target.value})}
-        displayEmpty
-        inputProps={{"aria-label": "Without label"}}
-      >
-        <MenuItem value={"S"}>S</MenuItem>
-        <MenuItem value={"M"}>M</MenuItem>
-        <MenuItem value={"XL"}>XL</MenuItem>
-        <MenuItem value={"XXL"}>XXL</MenuItem>
-        <MenuItem value={"3XL"}>3XL</MenuItem>
-      </Select>
-      <InputLabel id="demo-simple-select-helper-label">الطول</InputLabel>
-      <Select
-        className="w-40"
-        value={standard.length}
-        onChange={e => setStandard({...standard, length: e.target.value})}
-        displayEmpty
-        inputProps={{"aria-label": "Without label"}}
-      >
-        <MenuItem value={50}>50</MenuItem>
-        <MenuItem value={60}>60</MenuItem>
-        <MenuItem value={70}>70</MenuItem>
-        <MenuItem value={80}>80</MenuItem>
-        <MenuItem value={90}>100</MenuItem>
-      </Select>
-      <InputLabel id="demo-simple-select-helper-label">
-        التصميم الأمامي
-      </InputLabel>
-      <Select
-        className="w-40"
-        value={standard.design}
-        onChange={e => setStandard({...standard, design: e.target.value})}
-        displayEmpty
-        inputProps={{"aria-label": "Without label"}}
-      >
-        <MenuItem value={"مفتوحة"}>مفتوحة</MenuItem>
-        <MenuItem value={"مقفلة"}>مقفلة</MenuItem>
-      </Select>
+    <div className="flex flex-col gap-2 items-end">
+      <div className="flex flex-col items-end">
+        <InputLabel id="demo-simple-select-helper-label">القياس</InputLabel>
+        <Select
+          className="w-40 h-8"
+          value={standard.size}
+          onChange={e => setStandard({...standard, size: e.target.value})}
+          displayEmpty
+          inputProps={{"aria-label": "Without label"}}
+        >
+          <MenuItem value={"S"}>S</MenuItem>
+          <MenuItem value={"M"}>M</MenuItem>
+          <MenuItem value={"XL"}>XL</MenuItem>
+          <MenuItem value={"XXL"}>XXL</MenuItem>
+          <MenuItem value={"3XL"}>3XL</MenuItem>
+        </Select>
+      </div>
+      <div className="flex flex-col items-end">
+        <InputLabel id="demo-simple-select-helper-label">الطول</InputLabel>
+        <Select
+          className="w-40 h-8"
+          value={standard.length}
+          onChange={e => setStandard({...standard, length: e.target.value})}
+          displayEmpty
+          inputProps={{"aria-label": "Without label"}}
+        >
+          <MenuItem value={50}>50</MenuItem>
+          <MenuItem value={60}>60</MenuItem>
+          <MenuItem value={70}>70</MenuItem>
+          <MenuItem value={80}>80</MenuItem>
+          <MenuItem value={90}>100</MenuItem>
+        </Select>
+      </div>
+      <div className="flex flex-col items-end">
+        <InputLabel id="demo-simple-select-helper-label">
+          التصميم الأمامي
+        </InputLabel>
+        <Select
+          className="w-40 h-8"
+          value={standard.design}
+          onChange={e => setStandard({...standard, design: e.target.value})}
+          displayEmpty
+          inputProps={{"aria-label": "Without label"}}
+        >
+          <MenuItem value={"مفتوحة"}>مفتوحة</MenuItem>
+          <MenuItem value={"مقفلة"}>مقفلة</MenuItem>
+        </Select>
+      </div>
     </div>
   );
 };
 
-const DetailProduct = ({addToCart, updateQuantity}) => {
+const DetailProduct = () => {
+  const user = jwt_decode(
+    JSON.parse(localStorage.getItem("userEcommerce")).token
+  );
   //react router
   const {id} = useParams();
   const navigate = useNavigate();
@@ -105,6 +115,7 @@ const DetailProduct = ({addToCart, updateQuantity}) => {
   const {data: product, loading, error} = useDetailFetch("product", id);
   const [mainImage, setMainImage] = useState(product.image);
   const [ratinge, setRating] = useState(0);
+  const [favoraitShow, setFavoraitShow] = useState(false);
   const [standard, setStandard] = useState({
     size: "",
     length: "",
@@ -113,7 +124,15 @@ const DetailProduct = ({addToCart, updateQuantity}) => {
   const [counter, setCounter] = useState(0);
   useEffect(() => {
     setMainImage(product.image);
-    console.log(product);
+    //console.log(product);
+    // const makeRequest = async () => {
+    //   const res = await api.fetchFavoraitProducts(user.id);
+    //   if (res.data[0]._id === product._id) {
+    //     //console.log(findeFav);
+    //     setFavoraitShow(true);
+    //   }
+    // };
+    // makeRequest();
   }, [product]);
   //
   if (loading)
@@ -133,10 +152,24 @@ const DetailProduct = ({addToCart, updateQuantity}) => {
       <div id="textDetailProduct" className="w-full p-2 text-sm text-end w-1/2">
         <div className="flex flex-col gap-6 items-end">
           <div className="flex justify-between items-center w-full">
-            <MdFavoriteBorder
-              size={40}
-              className="cursor-pointer bg-white shadow-lg p-2"
-            />
+            {user && (
+              <MdFavoriteBorder
+                size={40}
+                className="cursor-pointer bg-white shadow-lg p-2"
+                color={favoraitShow ? "red" : "black"}
+                onClick={async () => {
+                  if (user) {
+                    const res = await api.createFavoraitProduct({
+                      idUser: user.id,
+                      idProduct: product._id,
+                    });
+                    setFavoraitShow(true);
+                  } else {
+                    localStorage.removeItem("userEcommerce");
+                  }
+                }}
+              />
+            )}
             <h3 className="text-3xl font-semibold text-black">
               {product.name}
             </h3>
@@ -164,7 +197,11 @@ const DetailProduct = ({addToCart, updateQuantity}) => {
             class="mt-1 block w-full rounded border-2 border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm  text-end text-black p-1"
           />
           <button
-            className=" py-2 px-6 bg-black text-white font-semibold"
+            className={
+              counter
+                ? "py-2 px-6 bg-black text-white font-semibold"
+                : "py-2 px-6 bg-gray-200 text-black font-semibold cursor-not-allowed"
+            }
             disabled={counter === 0}
             onClick={async () => {
               const response = await api.updateCart({
@@ -205,20 +242,3 @@ const DetailProduct = ({addToCart, updateQuantity}) => {
   );
 };
 export default DetailProduct;
-/* 
- <select
-            value={sku}
-            onChange={event => {
-              setSku(event.target.value);
-            }}
-            className="border-2 border-gray-600 rounded cursor-pointer"
-          >
-            <option value="">What size</option>
-            {product.skus &&
-              product.skus.map(s => (
-                <option key={s.sku} value={s.sku}>
-                  {s.size}
-                </option>
-              ))}
-          </select>
-*/

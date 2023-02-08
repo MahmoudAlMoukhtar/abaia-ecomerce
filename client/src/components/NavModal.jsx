@@ -1,18 +1,18 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
+import {BsArrowDownShort} from "react-icons/bs";
 
 const activeStyle = {
   color: "white",
-  backgroundColor: "#eab308",
+  backgroundColor: "#000",
   padding: "8px",
   borderRadius: "4px",
-  color: "black",
+  color: "white",
   fontWeight: "bold",
 };
 
 const styles = {
-  linkPages:
-    "hover:text-white p-[8px] hover:bg-[#eab308] hover:text-black hover:font-semibold hover:rounded-[4px]",
+  linkPages: "p-[8px]  transition duration-100 borderr",
   navBarModalHidden: "hidden",
   navBarModal:
     "fixed inset-0 bg-opacity-75 transition-opacity flex flex-col justify-center items-center z-50",
@@ -46,63 +46,40 @@ const NavbarModal = ({setNavBarModal, navbarModal}) => {
             to="/"
             end
             className={styles.linkPages}
-            onClick={() => setNavBarModal(false)}
           >
-            Home
+            الصفحة الرئيسية
           </NavLink>
           <NavLink
             style={({isActive}) => (isActive ? activeStyle : undefined)}
-            to="/allProducts"
+            to="/كل المنتجات"
             className={styles.linkPages}
-            onClick={() => setNavBarModal(false)}
           >
-            Shop
+            الأقسام
+            <span className="absolute top-[-10px] right-[-20px]">
+              <BsArrowDownShort color="black" />
+            </span>
           </NavLink>
           <NavLink
             style={({isActive}) => (isActive ? activeStyle : undefined)}
             to="/about"
             className={styles.linkPages}
-            onClick={() => setNavBarModal(false)}
           >
-            About Us
+            من نحن
           </NavLink>
 
           <NavLink
             style={({isActive}) => (isActive ? activeStyle : undefined)}
             to="/blogs"
             className={styles.linkPages}
-            onClick={() => setNavBarModal(false)}
           >
-            Blogs
+            منتجات جديدة
           </NavLink>
           <NavLink
             style={({isActive}) => (isActive ? activeStyle : undefined)}
-            to="/contact"
+            to="/account"
             className={styles.linkPages}
-            onClick={() => setNavBarModal(false)}
           >
-            Contact Us
-          </NavLink>
-          <NavLink
-            to="/Cart"
-            className={
-              "text-white hover:text-black hover:pb-1 border-b-4 border-yellow-500 link-nav bg-black p-2 rounded-full font-bold"
-            }
-            onClick={() => setNavBarModal(false)}
-          >
-            <svg
-              width="1.2em"
-              height="1.2em"
-              viewBox="0 0 16 16"
-              className="bi bi-cart"
-              fill="white"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fillRule="evenodd"
-                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"
-              />
-            </svg>
+            حسابي
           </NavLink>
         </ul>
       </div>

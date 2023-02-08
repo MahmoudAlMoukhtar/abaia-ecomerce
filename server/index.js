@@ -9,6 +9,8 @@ const userRoutes = require("./routes/users");
 const ordersRoutes = require("./routes/order");
 const paymentRouter = require("./routes/stripe");
 const incomeRouter = require("./routes/income");
+const messageRouter = require("./routes/message");
+const favoraitRouter = require("./routes/Favorait");
 const app = express();
 
 app.use(bodyParser.json({limit: "50mb", extended: true}));
@@ -21,6 +23,8 @@ app.use("/api/cart", cartRoutes);
 app.use("/api/orders", ordersRoutes);
 app.use("/api/payment", paymentRouter);
 app.use("/api/income", incomeRouter);
+app.use("/api/message", messageRouter);
+app.use("/api/favorait", favoraitRouter);
 const CONNECTION_URL =
   "mongodb+srv://mahmoudalmoukhtar:yzXnwFEiW0KV1c0o@cluster0.sch8ie1.mongodb.net/?retryWrites=true&w=majority";
 const CONNECTION_URL_COMPAS = "mongodb://localhost:27017/ecommerce";

@@ -9,7 +9,7 @@ import MyOrders from "./MyOrders";
 import MyFeedBack from "./MyFeedback";
 import MyPasswordChange from "./MyPasswordChange";
 import jwt_decode from "jwt-decode";
-
+import * as api from "../../api/index";
 const styles = {
   navLink:
     "flex justify-end gap-2 items-center py-4 border-b-[0.5px] border-gray-600 w-full pr-2",
@@ -21,21 +21,36 @@ const Profile = () => {
   const user = jwt_decode(
     JSON.parse(localStorage.getItem("userEcommerce")).token
   );
-  console.log(user);
-  const [formData, setFormData] = useState(user);
-  const [isSignup, setIsSignup] = useState(false);
+  //console.log(user);
+  const [userData, setUserData] = useState(user);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
   const navigait = useNavigate();
 
-  // const handleSubmit = async e => {
+  useEffect(() => {
+    const fun = async () => {
+      try {
+        console.log(user);
+        const {data} = await api.fetchUserById(user.id);
+        if (!data) {
+          localStorage.removeItem("userEcommerce");
+          navigait("/");
+        } else {
+          setUserData(data);
+          console.log(data);
+        }
+      } catch (e) {
+        if (e) setError(e);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fun();
+  }, []);
 
-  // };
-  const handleTextFieldChange = e => {
-    setFormData({...formData, [e.target.name]: e.target.value});
-  };
-
-  const switchMode = () => {
-    setIsSignup(!isSignup);
-  };
+  if (error) throw error;
+  if (loading)
+    return <h1 className="text-center font-bold text-5xl my-40">Loading...</h1>;
 
   return (
     <div className="flex flex-col items-center text-end">
@@ -49,11 +64,20 @@ const Profile = () => {
           <div className="w-20 h-[2px] bg-gray-400" />
         </div>
       </div>
-      <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:items-start rounded text-end p-8 lg:p-20 bg-gray-100 rounded-lg w-full ">
+      <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:items-start rounded text-end p-8  bg-gray-100 rounded-lg w-full ">
         <div className="w-full max-w-md space-y-8">
           <Routes>
             <Route path="" element={<MyData user={user} />} />
-            <Route path="myAddress" element={<MyAddress user={user} />} />
+            <Route
+              path="favorait"
+              element={
+                <MyAddress
+                  user={user}
+                  userData={userData}
+                  setUserData={setUserData}
+                />
+              }
+            />
             <Route path="myOrders" element={<MyOrders user={user} />} />
             <Route
               path="myPasswordChange"
@@ -78,14 +102,14 @@ const Profile = () => {
                 </div>
               </NavLink>
               <NavLink
-                to={"/account/myAddress"}
+                to={"/account/favorait"}
                 className={
                   "flex justify-between w-full items-center hover:border-r-4 border-white transtion duration-100"
                 }
               >
                 <BsArrowRightShort />
                 <div className={styles.navLink}>
-                  عناويني
+                  المفضلة
                   <IoPersonOutline />
                 </div>
               </NavLink>

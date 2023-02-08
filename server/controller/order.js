@@ -55,8 +55,8 @@ const deleteOrder = async (req, res) => {
   try {
     // const order = await Order.findOne({idUser: req.userId});
     // order.products.push(updates);
-    await Order.findByIdAndDelete(_id);
-    res.status(200).json({message: "removed order in successfully!"});
+    const orderDelete = await Order.findByIdAndDelete(_id);
+    res.status(200).json(orderDelete);
   } catch (err) {
     res.status(400).send({message: err.message});
   }

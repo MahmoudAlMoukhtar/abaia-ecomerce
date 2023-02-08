@@ -3,6 +3,7 @@ import axios from "axios";
 const API = axios.create({
   baseURL: "https://abaia-ecomerce.vercel.app/api",
 });
+//baseURL: "https://abaia-ecomerce.vercel.app/api",
 /* baseURL: "https://socialmedia-mernstack.vercel.app/api", */
 /*  https://socialmedia-mernstack.vercel.app/api*/
 API.interceptors.request.use(req => {
@@ -55,8 +56,12 @@ export const createPay = data => API.post("/payment", data);
 export const fetchAllUsers = () => API.get("/user");
 export const fetchUserById = id => API.get(`/user/${id}`);
 export const deleteUserById = id => API.delete(`/user/${id}`);
+export const updateUserById = (id, updates) => API.put(`/user/${id}`, updates);
 
 //orders
 export const fetchAllOrders = () => API.get(`/orders`);
-export const deleteOrderById = id => API.get(`/orders/${id}`);
+export const deleteOrderById = id => API.delete(`/orders/${id}`);
 export const getMonthlyIncome = () => API.get(`/income`);
+export const getAllSales = () => API.get(`/income/allSales`);
+export const getAllSalesProductById = id =>
+  API.get(`/income/allSalesProduct/${id}`);

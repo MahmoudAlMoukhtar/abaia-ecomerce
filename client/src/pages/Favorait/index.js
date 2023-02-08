@@ -35,17 +35,12 @@ const CartPage = ({updateQuantity}) => {
     };
     fun();
   }, []);
+  //console.log("amountItemsInCart", amount);
 
   if (error) throw error;
   if (loading)
     return <h1 className="text-center font-bold text-5xl my-40">Loading...</h1>;
 
-  //console.log("products", cartProducts);
-
-  // const numberItemsInCart = cartProducts?.reduce(
-  //   (total, item) => total + item.quantity,
-  //   0
-  // );
   return (
     <React.Fragment>
       <div className="pt-12">

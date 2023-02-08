@@ -5,8 +5,6 @@ import {Routes, Route} from "react-router-dom";
 import CartPage from "./pages/Cart";
 import DetailProduct from "./components/DetailProduct";
 import ContactPage from "./pages/Contact";
-import BlogsPage from "./pages/Blogs";
-import DetailBlog from "./components/DetailBlog";
 import ShopPage from "./pages/Shop";
 import HomePage from "./pages/Home";
 import Footer from "../src/common/Footer";
@@ -21,18 +19,41 @@ import Profile from "./pages/Profile/index.js";
 import MyData from "./pages/Profile/MyData";
 import jwt_decode from "jwt-decode";
 import PrivaitRoute from "./components/PrivaitRoute";
+import GoSellDemo from "./components/GoSellDemo";
+import {List, ListItem, ListItemText} from "@material-ui/core";
+import SearchPage from "./pages/ٍSearch";
 export default function App() {
   const [navBarModal, setNavBarModal] = useState(false);
+  const [show, setShow] = useState(false);
+
   return (
     <React.Fragment>
       <ScrollToTop />
       <div className="w-[100%]">
-        <Navbar setNavBarModal={setNavBarModal} navbarModal={navBarModal} />
+        <Navbar
+          setNavBarModal={setNavBarModal}
+          navbarModal={navBarModal}
+          show={show}
+          setShow={setShow}
+        />
         <NavbarModal
           setNavBarModal={setNavBarModal}
           navbarModal={navBarModal}
         />
-
+        <List
+          className={
+            show
+              ? "block absolute top-[20px] left-[40px] shadow-lg w-80"
+              : "hidden absolute "
+          }
+        >
+          <ListItem disablePadding>
+            <ListItemText primary="Trash" />
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemText primary="Spam" />
+          </ListItem>
+        </List>
         <Routes>
           <Route
             path="/"
@@ -67,7 +88,22 @@ export default function App() {
             path="/:category/:id"
             element={<DetailProduct setNavBarModal={setNavBarModal} />}
           />
-          <Route path="/cart" element={<CartPage />} />
+          <Route
+            path="/cart"
+            element={
+              <PrivaitRoute>
+                <CartPage />
+              </PrivaitRoute>
+            }
+          />
+          <Route
+            path="/search"
+            element={
+              <PrivaitRoute>
+                <SearchPage />
+              </PrivaitRoute>
+            }
+          />
         </Routes>
         <Footer />
       </div>

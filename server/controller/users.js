@@ -21,6 +21,37 @@ const fetchUserById = async (req, res) => {
   }
 };
 
+const fetchFavoraitProducts = async (req, res) => {
+  const {id: _id} = req.params;
+  try {
+    const user = await User.findById(_id);
+    res.status(200).json(user.favoraitProducts);
+  } catch (err) {
+    res.status(404).json({message: err.message});
+  }
+};
+
+const updateFavoraitProductsById = async (req, res) => {
+  const {id: _id} = req.params;
+  const newUser = req.body;
+  console.log(newUser);
+  console.log(_id);
+  try {
+    // let user = await User.findById(_id);
+    // console.log(user);
+    // user.favoraitProducts.push(newFavoraitProduct);
+    // //console.log(req.userId);
+    // //console.log(_id);
+    const updatedFavoraitProducts = await User.findByIdAndUpdate(_id, newUser, {
+      new: true,
+    });
+    //console.log(updateFavoraitProductsById);
+    res.status(200).json(updatedFavoraitProducts);
+  } catch (err) {
+    res.status(400).send({message: err.message});
+  }
+};
+
 const deleteUserById = async (req, res) => {
   const {id: _id} = req.params;
   console.log(_id);
@@ -28,6 +59,20 @@ const deleteUserById = async (req, res) => {
     const userDeleted = await User.findByIdAndDelete(_id);
 
     res.status(200).json(userDeleted);
+  } catch (err) {
+    res.status(404).json({message: err.message});
+  }
+};
+const updateUserById = async (req, res) => {
+  const {id: _id} = req.params;
+  const updates = req.body;
+  //console.log(_id);
+  try {
+    const userUpdated = await User.findByIdAndUpdate(_id, updates, {
+      new: true,
+    });
+
+    res.status(200).json(userUpdated);
   } catch (err) {
     res.status(404).json({message: err.message});
   }
@@ -55,6 +100,7 @@ const signin = async (req, res) => {
         lastName: existingUser.lastName,
         email: existingUser.email,
         mobileNumber: existingUser.mobileNumber,
+        favoraitProducts: existingUser.favoraitProducts,
         id: existingUser._id,
       },
       "132jwtsecretkey123"
@@ -93,6 +139,7 @@ const signup = async (req, res) => {
         lastName: resulte.lastName,
         email: resulte.email,
         mobileNumber: resulte.mobileNumber,
+        favoraitProducts: resulte.favoraitProducts,
         id: resulte._id,
       },
       "132jwtsecretkey123"
@@ -109,4 +156,7 @@ module.exports = {
   fetchAllUsers,
   deleteUserById,
   fetchUserById,
+  updateUserById,
+  fetchFavoraitProducts,
+  updateFavoraitProductsById,
 };

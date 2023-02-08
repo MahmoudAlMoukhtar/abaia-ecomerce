@@ -18,7 +18,7 @@ export default function FeaturedInfo() {
         setDataUsers(responseUser.data);
         const responseOrders = await api.fetchAllOrders();
         setDataOrders(responseOrders.data);
-        const responseSales = await api.getMonthlyIncome();
+        const responseSales = await api.getAllSales();
 
         setDataSales(responseSales.data);
       } catch (err) {
@@ -38,33 +38,23 @@ export default function FeaturedInfo() {
         <span className="featuredTitle">USERS</span>
         <div className="featuredMoneyContainer">
           <span className="featuredMoney">{data.length}</span>
-          <span className="featuredMoneyRate">+11.4</span>
         </div>
-        <span className="featuredSub">Compared to last month</span>
+        <span className="featuredSub">ALL USERS</span>
       </div>
       <div className="featuredItem">
         <span className="featuredTitle">ORDERS</span>
         <div className="featuredMoneyContainer">
           <span className="featuredMoney">{dataOrders.length}</span>
-          <span className="featuredMoneyRate">-11.4</span>
         </div>
-        <span className="featuredSub">Compared to last month</span>
+        <span className="featuredSub">ALL ORDERS</span>
       </div>
-      <div className="featuredItem">
-        <span className="featuredTitle">Revanue</span>
-        <div className="featuredMoneyContainer">
-          <span className="featuredMoney">$2,415</span>
-          <span className="featuredMoneyRate">-11.4</span>
-        </div>
-        <span className="featuredSub">Compared to last month</span>
-      </div>
+
       <div className="featuredItem">
         <span className="featuredTitle">Sales</span>
         <div className="featuredMoneyContainer">
           <span className="featuredMoney">${dataSales[0].total}</span>
-          <span className="featuredMoneyRate">-1.4</span>
         </div>
-        <span className="featuredSub">Compared to last month</span>
+        <span className="featuredSub">ALL SALES</span>
       </div>
     </div>
   );
@@ -81,6 +71,16 @@ export default function FeaturedInfo() {
         <div className="featuredMoneyContainer">
           <span className="featuredMoney">$2,225</span>
           <span className="featuredMoneyRate">+2.4</span>
+        </div>
+        <span className="featuredSub">Compared to last month</span>
+      </div>
+*/
+/* 
+<div className="featuredItem">
+        <span className="featuredTitle">Revanue</span>
+        <div className="featuredMoneyContainer">
+          <span className="featuredMoney">$2,415</span>
+          <span className="featuredMoneyRate">-11.4</span>
         </div>
         <span className="featuredSub">Compared to last month</span>
       </div>

@@ -29,7 +29,7 @@ export default function UserList() {
 
   const handleDelete = async id => {
     const userDeleted = await api.deleteUserById(id);
-    setDataUsers(data.filter(item => item._id !== userDeleted.data._id));
+    setDataUsers(data.filter(item => item._id !== id));
   };
   if (error) return <h1 className="text-red-800">error</h1>;
   if (loading) return <h1 className="text-red-800">Loading</h1>;

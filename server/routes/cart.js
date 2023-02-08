@@ -4,6 +4,7 @@ const {
   createCart,
   upadteCart,
   emptyCart,
+  deleteProductById,
 } = require("../controller/cart");
 const authMW = require("../middleware/authMW");
 
@@ -13,5 +14,6 @@ router.get("/", authMW, getProductsCartByIdUser);
 router.post("/", authMW, createCart);
 router.put("/", authMW, upadteCart);
 router.patch("/", authMW, emptyCart);
+router.delete("/:id", authMW, deleteProductById);
 
 module.exports = router;

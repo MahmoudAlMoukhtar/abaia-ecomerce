@@ -15,6 +15,6 @@ router.get("/", authMW, getAllUsersOrders);
 router.get("/:id", authMW, getUserOrder);
 router.post("/", authMW, createOrder);
 router.put("/:id", authMW, upadteOrder);
-router.delete("/:id", authMW, deleteOrder);
+router.delete("/:id", deleteOrder);
 
 module.exports = router;

@@ -3,6 +3,7 @@ import axios from "axios";
 const API = axios.create({
   baseURL: "https://abaia-ecomerce.vercel.app/api",
 });
+//baseURL: "https://abaia-ecomerce.vercel.app/api",
 API.interceptors.request.use(req => {
   //console.log(localStorage.getItem("userEcommerce"));
   if (localStorage.getItem("userEcommerce")) {
@@ -29,11 +30,13 @@ export const signin = formData => API.post("/user/signin", formData);
 export const signup = formData => API.post("/user/signup", formData);
 export const updateProfile = (id, updates) =>
   API.put(`/user/updateProfile/${id}`, updates);
-
-// //notify
-// export const addNotify = notify => API.post(`/notify`, notify);
-// export const fetchNotifycations = () => API.get("/notify");
-// export const updateNotifycations = id => API.get(`/notify/${id}`);
+export const fetchUserById = id => API.get(`/user/${id}`);
+export const fetchFavoraitProducts = id => API.get(`/favorait/${id}`);
+export const createFavoraitProduct = newFavorait =>
+  API.post(`/favorait`, newFavorait);
+//export const fetchFavoraitProducts = id => API.get(`/user/favorait/${id}`);
+export const updateFavoraitProductsById = (id, newFavProd) =>
+  API.post(`/user/favorait/${id}`, newFavProd);
 
 //products
 export const fetchProducts = () => API.get("/products");
@@ -42,6 +45,7 @@ export const fetchProductById = id => API.get(`/products/${id}`);
 export const createCart = () => API.post("/cart");
 export const updateCart = updates => API.put("/cart", updates);
 export const emptyCart = () => API.patch("/cart");
+export const deleteCartProductById = id => API.delete(`/cart/${id}`);
 export const fetchCart = () => API.get("/cart");
 //payment
 export const createPay = data => API.post("/payment", data);

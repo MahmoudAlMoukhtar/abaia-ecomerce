@@ -12,7 +12,7 @@ const Group = ({image, nameGroup}) => {
   const navigait = useNavigate();
   return (
     <figure
-      className=" lg:max-w-[600px] w-full h-[290px] relative drop-shadow-2xl my-4 transition duration-200 cursor-pointer z-40"
+      className=" max-w-[600px] h-[290px] relative drop-shadow-2xl my-4 transition duration-200 cursor-pointer z-40"
       onClick={() => navigait(`/${nameGroup}`)}
     >
       <img
@@ -30,7 +30,7 @@ const Group = ({image, nameGroup}) => {
 const Services = () => {
   return (
     <section
-      className="flex flex-col gap-2 justify-center items-center w-full"
+      className="flex flex-col gap-2 justify-center items-center w-full p-2"
       id=""
     >
       <h2 className="text-3xl">الأقسام</h2>
