@@ -64,7 +64,7 @@ const Selectes = ({standard, setStandard, product}) => {
           displayEmpty
           inputProps={{"aria-label": "Without label"}}
         >
-          {product.sizes ? (
+          {product.sizes.length > 0 ? (
             product.sizes.map(s => <MenuItem value={s}>{s}</MenuItem>)
           ) : (
             <div>
@@ -86,7 +86,7 @@ const Selectes = ({standard, setStandard, product}) => {
           displayEmpty
           inputProps={{"aria-label": "Without label"}}
         >
-          {product.lengthes ? (
+          {product.lengthes.length > 0 ? (
             product.lengthes.map(l => <MenuItem value={l}>{l}</MenuItem>)
           ) : (
             <div>
@@ -110,7 +110,7 @@ const Selectes = ({standard, setStandard, product}) => {
           displayEmpty
           inputProps={{"aria-label": "Without label"}}
         >
-          {product.lengthes ? (
+          {product.lengthes.length > 0 ? (
             product.lengthes.map(l => <MenuItem value={l}>{l}</MenuItem>)
           ) : (
             <div>
@@ -125,9 +125,14 @@ const Selectes = ({standard, setStandard, product}) => {
 };
 
 const DetailProduct = ({favoraitProducts, setFavoraitProducts}) => {
-  const user = jwt_decode(
-    JSON.parse(localStorage.getItem("userEcommerce")).token
-  );
+  const [user, setUser] = useState();
+  const userJson = localStorage.getItem("userEcommerce");
+  if (userJson) {
+    const userDecoded = jwt_decode(
+      JSON.parse(localStorage.getItem("userEcommerce")).token
+    );
+    setUser(userDecoded);
+  }
   //react router
   const {id} = useParams();
   const navigate = useNavigate();
@@ -145,14 +150,16 @@ const DetailProduct = ({favoraitProducts, setFavoraitProducts}) => {
   useEffect(() => {
     setMainImage(product.image);
     //console.log(product);
-    const makeRequest = async () => {
-      const res = await api.fetchFavoraitProducts(user.id);
-      setFavoraitProducts(true);
-      //   if (res.data[0]._id === product._id) {
-      //     //console.log(findeFav);
-      //   }
-    };
-    makeRequest();
+    if (userJson) {
+      const makeRequest = async () => {
+        const res = await api.fetchFavoraitProducts(user.id);
+        setFavoraitProducts(true);
+        //   if (res.data[0]._id === product._id) {
+        //     //console.log(findeFav);
+        //   }
+      };
+      makeRequest();
+    }
   }, [product, favoraitShow]);
   //
   if (loading)
@@ -176,7 +183,7 @@ const DetailProduct = ({favoraitProducts, setFavoraitProducts}) => {
         >
           <div className="flex flex-col gap-6 items-end">
             <div className="flex justify-between items-center w-full">
-              {user && (
+              {userJson && (
                 <MdFavoriteBorder
                   size={40}
                   className="cursor-pointer bg-white shadow-lg p-2"
@@ -226,7 +233,7 @@ const DetailProduct = ({favoraitProducts, setFavoraitProducts}) => {
             />
             <button
               className={
-                counter
+                counter && userJson
                   ? "py-2 px-6 bg-black text-white font-semibold"
                   : "py-2 px-6 bg-gray-200 text-black font-semibold cursor-not-allowed"
               }
