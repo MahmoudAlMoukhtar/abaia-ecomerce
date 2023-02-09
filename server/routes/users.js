@@ -8,6 +8,7 @@ const {
   updateUserById,
   fetchFavoraitProducts,
   updateFavoraitProductsById,
+  updatePasswordUserById,
 } = require("../controller/users");
 const router = express.Router();
 
@@ -17,6 +18,7 @@ router.get("/", fetchAllUsers);
 router.get("/:id", fetchUserById);
 router.delete("/:id", deleteUserById);
 router.put("/:id", updateUserById);
+router.put("/password/:id", updatePasswordUserById);
 router.get("/favorait/:id", fetchFavoraitProducts);
 router.post("/favorait/:id", updateFavoraitProductsById);
 //router.delete("/favorait/:id", updateFavoraitProductsById);

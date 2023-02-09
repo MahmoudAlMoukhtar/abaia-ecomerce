@@ -89,10 +89,51 @@ const updateUserById = async (req, res) => {
     res.status(404).json({message: err.message});
   }
 };
+const updatePasswordUserById = async (req, res) => {
+  const {id: _id} = req.params;
+  const updates = req.body;
+  try {
+    const existingUser = await User.findById(_id);
+    if (!existingUser)
+      return res.status(400).json({message: "sorry this user doesnt exist!"});
+    const isPasswordCorrect = await bcrypt.compareSync(
+      updates.oldPassword,
+      existingUser.password
+    );
+    if (!isPasswordCorrect)
+      return res
+        .status(400)
+        .json({message: "sorry password or email is error"});
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(updates.newPassword, salt);
+    const userUpdated = await User.findByIdAndUpdate(
+      _id,
+      {password: hash},
+      {
+        new: true,
+      }
+    );
+
+    const token = jwt.sign(
+      {
+        firstName: userUpdated.firstName,
+        lastName: userUpdated.lastName,
+        email: userUpdated.email,
+        mobileNumber: userUpdated.mobileNumber,
+        favoraitProducts: userUpdated.favoraitProducts,
+        id: userUpdated._id,
+      },
+      "132jwtsecretkey123"
+    );
+    res.status(200).json({token});
+  } catch (err) {
+    res.status(404).json({message: err.message});
+  }
+};
 
 const signin = async (req, res) => {
   const {email, password} = req.body;
-  console.log(req.body);
+  //console.log(req.body);
   try {
     const existingUser = await User.findOne({email});
     if (!existingUser)
@@ -171,4 +212,5 @@ module.exports = {
   updateUserById,
   fetchFavoraitProducts,
   updateFavoraitProductsById,
+  updatePasswordUserById,
 };
