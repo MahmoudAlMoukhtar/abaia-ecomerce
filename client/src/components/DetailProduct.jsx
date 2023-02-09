@@ -7,10 +7,12 @@ import {MdFavoriteBorder} from "react-icons/md";
 import {GrStar} from "react-icons/gr";
 import * as api from "../api/index";
 import jwt_decode from "jwt-decode";
+import ProductsMostSell from "../components/ProductsMostSell";
 
 import {Box, InputLabel, MenuItem, Select, TextField} from "@material-ui/core";
 import {Rating} from "@material-ui/lab";
 import StarRating from "./RaitingStars";
+import ProductsMostRevelant from "./ProductsMostRevelant";
 
 const Counter = ({counter, setCounter}) => {
   return (
@@ -144,101 +146,108 @@ const DetailProduct = ({favoraitProducts, setFavoraitProducts}) => {
   if (error) throw error;
   //return jsx UI product
   return (
-    <section
-      className={
-        "flex justify-center gap-10 items-start w-full text-end text-gray-600 px-10 mt-20"
-      }
-    >
-      <div id="textDetailProduct" className="w-full p-2 text-sm text-end w-1/2">
-        <div className="flex flex-col gap-6 items-end">
-          <div className="flex justify-between items-center w-full">
-            {user && (
-              <MdFavoriteBorder
-                size={40}
-                className="cursor-pointer bg-white shadow-lg p-2"
-                color={favoraitShow ? "red" : "black"}
-                onClick={async () => {
-                  if (user) {
-                    const res = await api.createFavoraitProduct({
-                      idUser: user.id,
-                      idProduct: product._id,
-                    });
-                    setFavoraitShow(true);
-                  } else {
-                    localStorage.removeItem("userEcommerce");
-                  }
-                }}
-              />
-            )}
-            <h3 className="text-3xl font-semibold text-black">
-              {product.name}
-            </h3>
-          </div>
-          <div className="h-[1px] bg-gray-300 w-full"></div>
-          <div className="flex justify-between items-center w-full">
-            <Counter counter={counter} setCounter={setCounter} />
-            <p className="text-2xl">د.إ.{product.price}</p>
-          </div>
-          <p>LUX-5</p>
-          <p>15 - 10 days</p>
-
-          <StarRating />
-          <p className="font-semibold">Reviews|{0}</p>
-          <p>{product.description}</p>
-          <p>({product.offer})</p>
-          <Selectes standard={standard} setStandard={setStandard} />
-
-          <input
-            type="text"
-            name="message"
-            id="message"
-            autocomplete="given-name"
-            placeholder="Write message"
-            class="mt-1 block w-full rounded border-2 border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm  text-end text-black p-1"
-          />
-          <button
-            className={
-              counter
-                ? "py-2 px-6 bg-black text-white font-semibold"
-                : "py-2 px-6 bg-gray-200 text-black font-semibold cursor-not-allowed"
-            }
-            disabled={counter === 0}
-            onClick={async () => {
-              const response = await api.updateCart({
-                idProduct: product._id,
-                standard,
-                quantity: counter,
-              });
-
-              navigate("/cart");
-            }}
-          >
-            أضف إلى السلة
-          </button>
-        </div>
-      </div>
-      <div id="imagesProduct" className="flex flex-col items-center gap-4">
+    <div className="flex flex-col gap-20 items-center">
+      <section
+        className={
+          "flex justify-center gap-10 items-start w-full text-end text-gray-600 px-10 mt-20"
+        }
+      >
         <div
-          id="mainImage"
-          className="w-[600px] h-[600px] transition duration-200"
+          id="textDetailProduct"
+          className="w-full p-2 text-sm text-end w-1/2"
         >
-          <img
-            src={mainImage}
-            alt="mainProduct"
-            className="w-full h-full rounded-xl transition duration-200"
-          />
-        </div>
-        <div className="flex justif-center gap-2 items-center w-full">
-          {product?.ThumImages?.map(img => (
-            <img
-              src={img}
-              className="w-36 h-36 rounded-xl cursor-pointer"
-              onClick={() => setMainImage(img)}
+          <div className="flex flex-col gap-6 items-end">
+            <div className="flex justify-between items-center w-full">
+              {user && (
+                <MdFavoriteBorder
+                  size={40}
+                  className="cursor-pointer bg-white shadow-lg p-2"
+                  color={favoraitShow ? "red" : "black"}
+                  onClick={async () => {
+                    if (user) {
+                      const res = await api.createFavoraitProduct({
+                        idUser: user.id,
+                        idProduct: product._id,
+                      });
+                      setFavoraitShow(true);
+                    } else {
+                      localStorage.removeItem("userEcommerce");
+                    }
+                  }}
+                />
+              )}
+              <h3 className="text-3xl font-semibold text-black">
+                {product.name}
+              </h3>
+            </div>
+            <div className="h-[1px] bg-gray-300 w-full"></div>
+            <div className="flex justify-between items-center w-full">
+              <Counter counter={counter} setCounter={setCounter} />
+              <p className="text-2xl">د.إ.{product.price}</p>
+            </div>
+            <p>LUX-5</p>
+            <p>15 - 10 days</p>
+
+            <StarRating />
+            <p className="font-semibold">Reviews|{0}</p>
+            <p>{product.description}</p>
+            <p>({product.offer})</p>
+            <Selectes standard={standard} setStandard={setStandard} />
+
+            <input
+              type="text"
+              name="message"
+              id="message"
+              autocomplete="given-name"
+              placeholder="Write message"
+              class="mt-1 block w-full rounded border-2 border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm  text-end text-black p-1"
             />
-          ))}
+            <button
+              className={
+                counter
+                  ? "py-2 px-6 bg-black text-white font-semibold"
+                  : "py-2 px-6 bg-gray-200 text-black font-semibold cursor-not-allowed"
+              }
+              disabled={counter === 0}
+              onClick={async () => {
+                const response = await api.updateCart({
+                  idProduct: product._id,
+                  standard,
+                  quantity: counter,
+                });
+
+                navigate("/cart");
+              }}
+            >
+              أضف إلى السلة
+            </button>
+          </div>
         </div>
-      </div>
-    </section>
+        <div id="imagesProduct" className="flex flex-col items-center gap-4">
+          <div
+            id="mainImage"
+            className="w-[600px] h-[600px] transition duration-200"
+          >
+            <img
+              src={mainImage}
+              alt="mainProduct"
+              className="w-full h-full rounded-xl transition duration-200"
+            />
+          </div>
+          <div className="flex justif-center gap-2 items-center w-full">
+            {product?.ThumImages?.map(img => (
+              <img
+                src={img}
+                className="w-36 h-36 rounded-xl cursor-pointer"
+                onClick={() => setMainImage(img)}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+      <ProductsMostRevelant category={product.category} />
+      <ProductsMostSell />
+    </div>
   );
 };
 export default DetailProduct;
