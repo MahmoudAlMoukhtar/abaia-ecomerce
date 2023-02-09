@@ -52,7 +52,7 @@ const Counter = ({counter, setCounter}) => {
   );
 };
 
-const Selectes = ({standard, setStandard}) => {
+const Selectes = ({standard, setStandard, product}) => {
   return (
     <div className="flex flex-col gap-2 items-end">
       <div className="flex flex-col items-end">
@@ -64,11 +64,17 @@ const Selectes = ({standard, setStandard}) => {
           displayEmpty
           inputProps={{"aria-label": "Without label"}}
         >
-          <MenuItem value={"S"}>S</MenuItem>
-          <MenuItem value={"M"}>M</MenuItem>
-          <MenuItem value={"XL"}>XL</MenuItem>
-          <MenuItem value={"XXL"}>XXL</MenuItem>
-          <MenuItem value={"3XL"}>3XL</MenuItem>
+          {product.sizes ? (
+            product.sizes.map(s => <MenuItem value={s}>{s}</MenuItem>)
+          ) : (
+            <div>
+              <MenuItem value={"S"}>S</MenuItem>
+              <MenuItem value={"M"}>M</MenuItem>
+              <MenuItem value={"XL"}>XL</MenuItem>
+              <MenuItem value={"XXL"}>XXL</MenuItem>
+              <MenuItem value={"3XL"}>3XL</MenuItem>
+            </div>
+          )}
         </Select>
       </div>
       <div className="flex flex-col items-end">
@@ -80,11 +86,17 @@ const Selectes = ({standard, setStandard}) => {
           displayEmpty
           inputProps={{"aria-label": "Without label"}}
         >
-          <MenuItem value={50}>50</MenuItem>
-          <MenuItem value={60}>60</MenuItem>
-          <MenuItem value={70}>70</MenuItem>
-          <MenuItem value={80}>80</MenuItem>
-          <MenuItem value={90}>100</MenuItem>
+          {product.lengthes ? (
+            product.lengthes.map(l => <MenuItem value={l}>{l}</MenuItem>)
+          ) : (
+            <div>
+              <MenuItem value={50}>50</MenuItem>
+              <MenuItem value={60}>60</MenuItem>
+              <MenuItem value={70}>70</MenuItem>
+              <MenuItem value={80}>80</MenuItem>
+              <MenuItem value={90}>100</MenuItem>
+            </div>
+          )}
         </Select>
       </div>
       <div className="flex flex-col items-end">
@@ -98,8 +110,14 @@ const Selectes = ({standard, setStandard}) => {
           displayEmpty
           inputProps={{"aria-label": "Without label"}}
         >
-          <MenuItem value={"مفتوحة"}>مفتوحة</MenuItem>
-          <MenuItem value={"مقفلة"}>مقفلة</MenuItem>
+          {product.lengthes ? (
+            product.lengthes.map(l => <MenuItem value={l}>{l}</MenuItem>)
+          ) : (
+            <div>
+              <MenuItem value={"مفتوحة"}>مفتوحة</MenuItem>
+              <MenuItem value={"مقفلة"}>مقفلة</MenuItem>
+            </div>
+          )}
         </Select>
       </div>
     </div>
@@ -192,7 +210,11 @@ const DetailProduct = ({favoraitProducts, setFavoraitProducts}) => {
             <p className="font-semibold">Reviews|{0}</p>
             <p>{product.description}</p>
             <p>({product.offer})</p>
-            <Selectes standard={standard} setStandard={setStandard} />
+            <Selectes
+              standard={standard}
+              setStandard={setStandard}
+              product={product}
+            />
 
             <input
               type="text"
