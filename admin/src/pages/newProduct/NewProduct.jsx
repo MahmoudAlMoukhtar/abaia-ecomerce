@@ -1,11 +1,36 @@
 import {useState} from "react";
 import "./newProduct.css";
 import * as api from "../../api/index";
+import {useEffect} from "react";
+import SizesJsx from "./Sizes";
+import LengthesJsx from "./Lengthes";
+import DesignJsx from "./Designes";
+
+const initialState = {
+  name: "",
+  price: "",
+  category: "",
+  image: "",
+  ThumImages: "",
+  favoraitCount: "",
+  numberSell: "",
+  description: "",
+  stock: "",
+  active: "",
+  sizes: [],
+  lengthes: [],
+  designes: [],
+};
+
 export default function NewProduct() {
-  const [productData, setproductData] = useState();
+  const [productData, setproductData] = useState(initialState);
+  const [length, setLength] = useState(0);
+  const [design, setDesign] = useState("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  useEffect(() => {
+    console.log(productData);
+  }, [productData]);
   const handleSubmit = async e => {
     e.preventDefault();
     setLoading(true);
@@ -54,6 +79,7 @@ export default function NewProduct() {
               setproductData({...productData, name: e.target.value})
             }
           />
+          <label>Price</label>
           <input
             type="text"
             placeholder="price"
@@ -82,6 +108,19 @@ export default function NewProduct() {
             }
           />
         </div>
+        <SizesJsx productData={productData} setproductData={setproductData} />
+        <LengthesJsx
+          length={length}
+          setLength={setLength}
+          productData={productData}
+          setproductData={setproductData}
+        />
+        <DesignJsx
+          design={design}
+          setDesign={setDesign}
+          productData={productData}
+          setproductData={setproductData}
+        />
         <div className="addProductItem">
           <label>Stock</label>
           <input

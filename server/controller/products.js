@@ -12,7 +12,17 @@ const getProducts = async (req, res) => {
 };
 
 const createProduct = async (req, res) => {
-  const {name, price, category, description, stock, image} = req.body;
+  const {
+    name,
+    price,
+    category,
+    description,
+    stock,
+    image,
+    sizes,
+    lengthes,
+    designes,
+  } = req.body;
   try {
     const uploadedCloudniary = await cloudinary.uploader.upload(image, {
       upload_preset: "ml_default",
@@ -23,6 +33,9 @@ const createProduct = async (req, res) => {
       category,
       description,
       stock,
+      sizes,
+      lengthes,
+      designes,
       image: uploadedCloudniary.url,
     });
     const newProd = await newProduct.save();

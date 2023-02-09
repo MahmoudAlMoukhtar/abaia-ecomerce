@@ -41,13 +41,9 @@ const productSchema = mongoose.Schema(
       type: Boolean,
       default: true,
     },
-    standard: {
-      type: {
-        size: String,
-        length: String,
-        design: String,
-      },
-    },
+    sizes: {type: [String]},
+    lengthes: {type: [String]},
+    designes: {type: [String]},
   },
   {timestamps: true}
 );

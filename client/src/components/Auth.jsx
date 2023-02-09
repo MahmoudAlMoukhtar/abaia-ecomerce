@@ -4,33 +4,67 @@ import {Navigate, useNavigate} from "react-router-dom";
 import * as api from "../api/index";
 
 const initialState = {
-  fullName: "",
   email: "",
   password: "",
-  confirmPassword: "",
+};
+const STATUS = {
+  IDLE: "IDLE",
+  SUBMITTING: "SUBMITTING",
+  SUBMITTED: "SUBMITTED",
+  COMPLETED: "COMPLETED",
 };
 const Auth = () => {
   const user = JSON.parse(localStorage.getItem("userEcommerce"));
 
   const [formData, setFormData] = useState(initialState);
   const [showPassword, setShowPassword] = useState(false);
-  const [isSignup, setIsSignup] = useState(false);
+
+  const [saveError, setSaveError] = useState(null);
+  const [touche, setTouche] = useState({});
+  const [status, setStatus] = useState(STATUS.IDLE);
   const navigait = useNavigate();
   if (user) {
     return <Navigate to="/account" replace />;
   }
+  //Derived state
+  const errors = getErrors(formData);
+  const isValid = Object.keys(errors).length === 0;
+
+  function handleBlur(event) {
+    const {id} = event.target;
+    setTouche(curTouche => {
+      return {...curTouche, [id]: true};
+    });
+  }
+
+  function getErrors(formData) {
+    const result = {};
+    if (!formData.email) result.email = "Email is required";
+    if (!formData.password) result.password = "Password is required";
+    return result;
+  }
+
   const handleSubmit = async e => {
-    e.preventDefault();
-    const res = await api.signin(formData);
-    localStorage.setItem("userEcommerce", JSON.stringify(res.data));
-    navigait("/");
+    setStatus(STATUS.SUBMITTED);
+    if (isValid) {
+      e.preventDefault();
+      try {
+        const res = await api.signin(formData);
+        localStorage.setItem("userEcommerce", JSON.stringify(res.data));
+        setSaveError();
+        setStatus(STATUS.COMPLETED);
+        navigait("/");
+      } catch (err) {
+        setSaveError(err);
+        setStatus(STATUS.SUBMITTED);
+      }
+    } else {
+      setStatus(STATUS.SUBMITTED);
+    }
   };
   const handleTextFieldChange = e => {
+    e.persist();
     setFormData({...formData, [e.target.name]: e.target.value});
-  };
-
-  const switchMode = () => {
-    setIsSignup(!isSignup);
   };
 
   return (
@@ -45,37 +79,36 @@ const Auth = () => {
           <div className="w-20 h-[2px] bg-gray-400" />
         </div>
       </div>
+
       <div className="flex justify-between items-center rounded text-end p-20 bg-gray-100 rounded-lg w-full mx-20">
         <div className="w-full max-w-md space-y-8">
           <div>
             <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-              {isSignup ? "إنشاء حساب" : "لديك حساب"}
+              {"إنشاء حساب"}
             </h2>
           </div>
-          <form
-            className="mt-8 space-y-6"
-            action="#"
-            method="POST"
-            onSubmit={handleSubmit}
-          >
+          <form className="mt-8 space-y-6" action="#" method="POST">
+            {status === STATUS.COMPLETED && (
+              <p className="bg-green-300 p-2 rounded-md text-white font-semibold text-center">
+                Sign in successfully!
+              </p>
+            )}
+            {!isValid && status === STATUS.SUBMITTED && (
+              <div role="alert text-start">
+                <p className="text-start font-bold text-xl text-red-600">
+                  Please fix the following errors:
+                </p>
+                <ul className="text-start">
+                  {Object.keys(errors).map((keyObj, index) => {
+                    return (
+                      <li key={keyObj}>{`${index + 1}- ${errors[keyObj]}`}</li>
+                    );
+                  })}
+                </ul>
+              </div>
+            )}
             <input type="hidden" name="remember" defaultValue="true" />
             <div className=" rounded-md shadow-sm">
-              {isSignup && (
-                <div>
-                  <label htmlFor="fullName" className="">
-                    Full Name
-                  </label>
-                  <input
-                    id="fullName"
-                    name="fullName"
-                    type="text"
-                    required
-                    className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                    placeholder="First Name"
-                    onChange={handleTextFieldChange}
-                  />
-                </div>
-              )}
               <div>
                 <input
                   id="email"
@@ -86,6 +119,7 @@ const Auth = () => {
                   className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   placeholder="Email"
                   onChange={handleTextFieldChange}
+                  onBlur={handleBlur}
                 />
               </div>
               <div className="flex flex-col">
@@ -99,6 +133,7 @@ const Auth = () => {
                     className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     placeholder="Password"
                     onChange={handleTextFieldChange}
+                    onBlur={handleBlur}
                   />
                   {!showPassword ? (
                     <BiShowAlt
@@ -114,33 +149,6 @@ const Auth = () => {
                     />
                   )}
                 </div>
-                {isSignup && (
-                  <div className="flex gap-2 items-center appearance-none rounded-none rounded-b-md border border-gray-300">
-                    <input
-                      id="confirmPassword"
-                      name="confirmPassword"
-                      type={showPassword ? "text" : "password"}
-                      autoComplete="current-password"
-                      required
-                      className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                      placeholder="Confirm Password"
-                      onChange={handleTextFieldChange}
-                    />
-                    {!showPassword ? (
-                      <BiShowAlt
-                        onClick={() => setShowPassword(!showPassword)}
-                        className="cursor-pointer "
-                        size={20}
-                      />
-                    ) : (
-                      <BiHide
-                        onClick={() => setShowPassword(!showPassword)}
-                        className="cursor-pointer "
-                        size={20}
-                      />
-                    )}
-                  </div>
-                )}
               </div>
             </div>
 
@@ -173,20 +181,14 @@ const Auth = () => {
               <button
                 type="submit"
                 className="group relative flex w-full justify-center rounded-md border border-transparent bg-black py-2 px-4 text-sm font-medium text-white hover:bg-black focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                onClick={handleSubmit}
               >
-                {isSignup ? "إنشاء حساب" : "تسجيل دخول"}
+                {"تسجيل دخول"}
               </button>
             </div>
 
             <div className="group relative flex w-full justify-center rounded-md border border-transparent py-2 px-4 text-sm font-medium text-[#214252]">
-              {isSignup ? (
-                <div>
-                  Already have an account?{" "}
-                  <button onClick={switchMode} className="font-bold">
-                    تسجلي الدخول
-                  </button>
-                </div>
-              ) : (
+              {
                 <div>
                   Don't have an account?{" "}
                   <button
@@ -196,7 +198,7 @@ const Auth = () => {
                     إنشاء حساب
                   </button>
                 </div>
-              )}
+              }
             </div>
           </form>
         </div>

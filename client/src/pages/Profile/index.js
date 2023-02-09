@@ -37,7 +37,7 @@ const Profile = ({favoraitProducts, setFavoraitProducts}) => {
           navigait("/");
         } else {
           setUserData(data);
-          console.log(data);
+          //console.log(data);
         }
       } catch (e) {
         if (e) setError(e);

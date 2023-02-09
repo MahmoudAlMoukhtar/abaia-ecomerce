@@ -27,6 +27,8 @@ export const deleteCommentPost = (idPost, idComment) =>
 
 //AUTH Operation
 export const updateUserById = (id, updates) => API.put(`/user/${id}`, updates);
+export const updatePasswordUserById = (id, updates) =>
+  API.put(`/user/password/${id}`, updates);
 export const signin = formData => API.post("/user/signin", formData);
 export const signup = formData => API.post("/user/signup", formData);
 export const updateProfile = (id, updates) =>
