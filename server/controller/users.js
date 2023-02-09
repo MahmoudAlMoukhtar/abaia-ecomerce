@@ -67,12 +67,24 @@ const updateUserById = async (req, res) => {
   const {id: _id} = req.params;
   const updates = req.body;
   //console.log(_id);
+
   try {
     const userUpdated = await User.findByIdAndUpdate(_id, updates, {
       new: true,
     });
 
-    res.status(200).json(userUpdated);
+    const token = jwt.sign(
+      {
+        firstName: userUpdated.firstName,
+        lastName: userUpdated.lastName,
+        email: userUpdated.email,
+        mobileNumber: userUpdated.mobileNumber,
+        favoraitProducts: userUpdated.favoraitProducts,
+        id: userUpdated._id,
+      },
+      "132jwtsecretkey123"
+    );
+    res.status(200).json({token});
   } catch (err) {
     res.status(404).json({message: err.message});
   }

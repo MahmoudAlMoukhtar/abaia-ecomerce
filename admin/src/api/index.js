@@ -3,9 +3,7 @@ import axios from "axios";
 const API = axios.create({
   baseURL: "https://abaia-ecomerce.vercel.app/api",
 });
-//baseURL: "https://abaia-ecomerce.vercel.app/api",
-/* baseURL: "https://socialmedia-mernstack.vercel.app/api", */
-/*  https://socialmedia-mernstack.vercel.app/api*/
+//baseURL: "https://abaia-ecomerce.vercel.app/api"
 API.interceptors.request.use(req => {
   if (localStorage.getItem("userEcommerce")) {
     req.headers.Authorization = `Bearer ${

@@ -2,7 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 const Footer = () => {
   return (
-    <div className="relative flex items-start justify-between flex-wrap lg:flex-nowrap w-full px-20 py-8 text-end text-[#6A6A6A]">
+    <div className="relative  flex items-center justify-end md:items-start md:justify-between flex-wrap lg:flex-nowrap gap-6 w-full px-8 xl:px-20 py-8 md:text-end text-[#6A6A6A]">
       <div className="flex flex-col justify-end items-end gap-4">
         <h5 className="flex flex-col justify-end items-end">
           تابعنا

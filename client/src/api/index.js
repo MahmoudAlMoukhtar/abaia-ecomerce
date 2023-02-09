@@ -3,7 +3,7 @@ import axios from "axios";
 const API = axios.create({
   baseURL: "https://abaia-ecomerce.vercel.app/api",
 });
-//baseURL: "https://abaia-ecomerce.vercel.app/api",
+//baseURL: "http://localhost:3001/api",
 API.interceptors.request.use(req => {
   //console.log(localStorage.getItem("userEcommerce"));
   if (localStorage.getItem("userEcommerce")) {
@@ -26,6 +26,7 @@ export const deleteCommentPost = (idPost, idComment) =>
 //export const likePost = id => API.patch(`/posts/${id}/likePost`);
 
 //AUTH Operation
+export const updateUserById = (id, updates) => API.put(`/user/${id}`, updates);
 export const signin = formData => API.post("/user/signin", formData);
 export const signup = formData => API.post("/user/signup", formData);
 export const updateProfile = (id, updates) =>
