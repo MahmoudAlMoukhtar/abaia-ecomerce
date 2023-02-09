@@ -137,14 +137,11 @@ const Selectes = ({standard, setStandard, product}) => {
 };
 
 const DetailProduct = ({favoraitProducts, setFavoraitProducts}) => {
-  const [user, setUser] = useState();
   const userJson = localStorage.getItem("userEcommerce");
-  if (userJson) {
-    const userDecoded = jwt_decode(
-      JSON.parse(localStorage.getItem("userEcommerce")).token
-    );
-    setUser(userDecoded);
-  }
+  const user =
+    userJson &&
+    jwt_decode(JSON.parse(localStorage.getItem("userEcommerce")).token);
+
   //react router
   const {id} = useParams();
   const navigate = useNavigate();
@@ -165,7 +162,7 @@ const DetailProduct = ({favoraitProducts, setFavoraitProducts}) => {
     if (userJson) {
       const makeRequest = async () => {
         const res = await api.fetchFavoraitProducts(user.id);
-        setFavoraitProducts(true);
+        setFavoraitProducts(res.data);
         //   if (res.data[0]._id === product._id) {
         //     //console.log(findeFav);
         //   }
