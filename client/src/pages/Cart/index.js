@@ -7,13 +7,13 @@ import Pay from "../../components/Pay";
 import GoSellDemo from "../../components/GoSellDemo";
 //import useFetchAll from "../../services/useFetchAll";
 import jwt_decode from "jwt-decode";
-const CartPage = ({updateQuantity}) => {
+const CartPage = ({updateQuantity, cartProducts, setCartProducts}) => {
   const user = jwt_decode(
     JSON.parse(localStorage.getItem("userEcommerce")).token
   );
   const navigate = useNavigate();
   const [amount, setAmount] = useState();
-  const [cartProducts, setCartProducts] = useState();
+
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   useEffect(() => {

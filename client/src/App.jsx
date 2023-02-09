@@ -19,13 +19,13 @@ import Profile from "./pages/Profile/index.js";
 import MyData from "./pages/Profile/MyData";
 import jwt_decode from "jwt-decode";
 import PrivaitRoute from "./components/PrivaitRoute";
-import GoSellDemo from "./components/GoSellDemo";
 import {List, ListItem, ListItemText} from "@material-ui/core";
 import SearchPage from "./pages/ٍSearch/index";
 export default function App() {
   const [navBarModal, setNavBarModal] = useState(false);
   const [show, setShow] = useState(false);
-
+  const [cartProducts, setCartProducts] = useState();
+  const [favoraitProducts, setFavoraitProducts] = useState();
   return (
     <React.Fragment>
       <ScrollToTop />
@@ -35,6 +35,8 @@ export default function App() {
           navbarModal={navBarModal}
           show={show}
           setShow={setShow}
+          cartProducts={cartProducts}
+          favoraitProducts={favoraitProducts}
         />
         <NavbarModal
           setNavBarModal={setNavBarModal}
@@ -80,19 +82,31 @@ export default function App() {
             path="/account/*"
             element={
               <PrivaitRoute>
-                <Profile />
+                <Profile
+                  favoraitProducts={favoraitProducts}
+                  setFavoraitProducts={setFavoraitProducts}
+                />
               </PrivaitRoute>
             }
           />
           <Route
             path="/:category/:id"
-            element={<DetailProduct setNavBarModal={setNavBarModal} />}
+            element={
+              <DetailProduct
+                setNavBarModal={setNavBarModal}
+                favoraitProducts={favoraitProducts}
+                setFavoraitProducts={setFavoraitProducts}
+              />
+            }
           />
           <Route
             path="/cart"
             element={
               <PrivaitRoute>
-                <CartPage />
+                <CartPage
+                  cartProducts={cartProducts}
+                  setCartProducts={setCartProducts}
+                />
               </PrivaitRoute>
             }
           />

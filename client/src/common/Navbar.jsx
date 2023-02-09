@@ -20,7 +20,12 @@ const styles = {
   linkPages: "p-[8px]  transition duration-100 borderr",
 };
 
-const Navbar = ({show, setShow, setNavBarModal, navbarModal}) => {
+const Navbar = ({
+  cartProducts,
+  favoraitProducts,
+  setNavBarModal,
+  navbarModal,
+}) => {
   const [countCartProducts, setCountCartProducts] = useState();
   const [countFavProducts, setCountFavProducts] = useState();
   const navigait = useNavigate();
@@ -42,7 +47,7 @@ const Navbar = ({show, setShow, setNavBarModal, navbarModal}) => {
       };
       fun();
     }
-  }, []);
+  }, [cartProducts, favoraitProducts]);
   return (
     <nav className="flex flex-row-reverse justify-between items-center p-8 py-4 w-[100%] ">
       <HiMenuAlt1

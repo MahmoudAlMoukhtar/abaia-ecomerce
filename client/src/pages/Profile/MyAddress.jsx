@@ -8,8 +8,7 @@ const styles = {
     " bg-white w-full flex flex-col-reverse px-4 sm:flex-row justify-end gap-4 sm:gap-6 sm:items-center shadow-2xl py-2 transition duration-200 cursor-default	border-2 border-gray-600 text-sm",
 };
 
-const MyAddress = ({user}) => {
-  const [favoraitProducts, setFavoraitProducts] = useState(user);
+const MyAddress = ({user, favoraitProducts, setFavoraitProducts}) => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigait = useNavigate();

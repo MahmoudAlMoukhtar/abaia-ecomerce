@@ -104,7 +104,7 @@ const Selectes = ({standard, setStandard}) => {
   );
 };
 
-const DetailProduct = () => {
+const DetailProduct = ({favoraitProducts, setFavoraitProducts}) => {
   const user = jwt_decode(
     JSON.parse(localStorage.getItem("userEcommerce")).token
   );
@@ -125,15 +125,15 @@ const DetailProduct = () => {
   useEffect(() => {
     setMainImage(product.image);
     //console.log(product);
-    // const makeRequest = async () => {
-    //   const res = await api.fetchFavoraitProducts(user.id);
-    //   if (res.data[0]._id === product._id) {
-    //     //console.log(findeFav);
-    //     setFavoraitShow(true);
-    //   }
-    // };
-    // makeRequest();
-  }, [product]);
+    const makeRequest = async () => {
+      const res = await api.fetchFavoraitProducts(user.id);
+      setFavoraitProducts(true);
+      //   if (res.data[0]._id === product._id) {
+      //     //console.log(findeFav);
+      //   }
+    };
+    makeRequest();
+  }, [product, favoraitShow]);
   //
   if (loading)
     return <h1 className="text-center font-bold text-5xl my-40">Loading...</h1>;
