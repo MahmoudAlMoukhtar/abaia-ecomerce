@@ -65,7 +65,11 @@ const Selectes = ({standard, setStandard, product}) => {
           inputProps={{"aria-label": "Without label"}}
         >
           {product.sizes.length > 0 ? (
-            product.sizes.map(s => <MenuItem value={s}>{s}</MenuItem>)
+            product.sizes.map(s => (
+              <MenuItem value={s} key={s}>
+                {s}
+              </MenuItem>
+            ))
           ) : (
             <div>
               <MenuItem value={"S"}>S</MenuItem>
@@ -87,7 +91,11 @@ const Selectes = ({standard, setStandard, product}) => {
           inputProps={{"aria-label": "Without label"}}
         >
           {product.lengthes.length > 0 ? (
-            product.lengthes.map(l => <MenuItem value={l}>{l}</MenuItem>)
+            product.lengthes.map(l => (
+              <MenuItem value={l} key={l}>
+                {l}
+              </MenuItem>
+            ))
           ) : (
             <div>
               <MenuItem value={50}>50</MenuItem>
@@ -110,8 +118,12 @@ const Selectes = ({standard, setStandard, product}) => {
           displayEmpty
           inputProps={{"aria-label": "Without label"}}
         >
-          {product.lengthes.length > 0 ? (
-            product.lengthes.map(l => <MenuItem value={l}>{l}</MenuItem>)
+          {product.designes.length > 0 ? (
+            product.designes.map(d => (
+              <MenuItem value={d} key={d}>
+                {d}
+              </MenuItem>
+            ))
           ) : (
             <div>
               <MenuItem value={"مفتوحة"}>مفتوحة</MenuItem>
@@ -149,7 +161,7 @@ const DetailProduct = ({favoraitProducts, setFavoraitProducts}) => {
   const [counter, setCounter] = useState(0);
   useEffect(() => {
     setMainImage(product.image);
-    //console.log(product);
+    console.log("product");
     if (userJson) {
       const makeRequest = async () => {
         const res = await api.fetchFavoraitProducts(user.id);
@@ -269,6 +281,7 @@ const DetailProduct = ({favoraitProducts, setFavoraitProducts}) => {
                 src={img}
                 className="w-36 h-36 rounded-xl cursor-pointer"
                 onClick={() => setMainImage(img)}
+                key={img}
               />
             ))}
           </div>
