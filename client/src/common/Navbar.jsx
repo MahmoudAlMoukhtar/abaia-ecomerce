@@ -21,21 +21,27 @@ const styles = {
 };
 
 const Navbar = ({show, setShow, setNavBarModal, navbarModal}) => {
-  const user = jwt_decode(
-    JSON.parse(localStorage.getItem("userEcommerce")).token
-  );
   const [countCartProducts, setCountCartProducts] = useState();
   const [countFavProducts, setCountFavProducts] = useState();
   const navigait = useNavigate();
   useEffect(() => {
-    const fun = async () => {
-      const {data} = await api.fetchCart();
-      setCountCartProducts(data.length);
-      const res = await api.fetchFavoraitProducts(user.id);
-      console.log(res.data);
-      setCountFavProducts(res.data.length);
-    };
-    fun();
+    const userJson = localStorage.getItem("userEcommerce");
+    if (!userJson) {
+      setCountFavProducts(0);
+      setCountCartProducts(0);
+    } else {
+      const user = jwt_decode(
+        JSON.parse(localStorage.getItem("userEcommerce")).token
+      );
+      const fun = async () => {
+        const {data} = await api.fetchCart();
+        setCountCartProducts(data.length);
+        const res = await api.fetchFavoraitProducts(user.id);
+        //console.log(res.data);
+        setCountFavProducts(res.data.length);
+      };
+      fun();
+    }
   }, []);
   return (
     <nav className="flex flex-row-reverse justify-between items-center p-8 py-4 w-[100%] ">
