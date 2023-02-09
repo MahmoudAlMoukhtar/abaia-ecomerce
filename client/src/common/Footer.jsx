@@ -33,34 +33,28 @@ const Footer = () => {
         </h5>
         <ul className="flex flex-col gap-2 items-end justify-end text-sm">
           <Link
-            to="/"
+            to="/account"
             className="hover:border-r-4 border-black transtion duration-100 px-2"
           >
             حسابي
           </Link>
           <Link
-            to="/"
+            to="/account/orders"
             className="hover:border-r-4 border-black transtion duration-100 px-2"
           >
             طلباتي
           </Link>
           <Link
-            to="/"
-            className="hover:border-r-4 border-black transtion duration-100 px-2"
-          >
-            عناويني
-          </Link>
-          <Link
-            to="/"
-            className="hover:border-r-4 border-black transtion duration-100 px-2"
-          >
-            سلة التسوق
-          </Link>
-          <Link
-            to="/"
+            to="/account/favorait"
             className="hover:border-r-4 border-black transtion duration-100 px-2"
           >
             المفضلة
+          </Link>
+          <Link
+            to="/cart"
+            className="hover:border-r-4 border-black transtion duration-100 px-2"
+          >
+            سلة التسوق
           </Link>
         </ul>
       </div>
@@ -81,13 +75,13 @@ const Footer = () => {
             بحث
           </Link>
           <Link
-            to="/"
+            to="/كل المنتجات"
             className="hover:border-r-4 border-black transtion duration-100 px-2"
           >
             منتجات شوهدت مؤخّراً
           </Link>
           <Link
-            to="/"
+            to="/منتجات جديدة"
             className="hover:border-r-4 border-black transtion duration-100 px-2"
           >
             منتجات جديدة

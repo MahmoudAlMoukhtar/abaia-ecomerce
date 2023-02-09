@@ -76,7 +76,7 @@ const ProductsSection = () => {
         </button>
       </ul>
       <div className="h-[1px] w-full bg-gray-200 translate-y-[-8px]"></div>
-      <div className="flex justify-end gap-10 flex-wrap w-full px-8">
+      <div className="flex justify-center gap-10 flex-wrap w-full px-8">
         {filteredProducts.map(p => (
           <Product product={p} />
         ))}
