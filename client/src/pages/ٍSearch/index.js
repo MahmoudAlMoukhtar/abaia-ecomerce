@@ -95,19 +95,17 @@ const SearchPage = ({addToCart, setNavBarModal}) => {
           .includes(filter.filterDataBySearch.toLowerCase()) ||
         p.description
           .toLowerCase()
-          .includes(filter.filterDataBySearch.toLowerCase()) ||
-        (p.price > downCounter && p.price > upCounter)
+          .includes(filter.filterDataBySearch.toLowerCase())
       );
     } else {
       return (
-        (p.category === filter.filterByCategory &&
-          p.name
-            .toLowerCase()
-            .includes(filter.filterDataBySearch.toLowerCase())) ||
-        p.description
+        p.category === filter.filterByCategory &&
+        (p.name
           .toLowerCase()
           .includes(filter.filterDataBySearch.toLowerCase()) ||
-        (p.price > downCounter && p.price > upCounter)
+          p.description
+            .toLowerCase()
+            .includes(filter.filterDataBySearch.toLowerCase()))
       );
     }
   });
