@@ -96,14 +96,7 @@ export default function App() {
               </PrivaitRoute>
             }
           />
-          <Route
-            path="/search"
-            element={
-              <PrivaitRoute>
-                <SearchPage />
-              </PrivaitRoute>
-            }
-          />
+          <Route path="/search" element={<SearchPage />} />
         </Routes>
         <Footer />
       </div>

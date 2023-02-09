@@ -22,10 +22,11 @@ const CartPage = ({updateQuantity}) => {
         const {data} = await api.fetchCart();
         setCartProducts(data);
         console.log(data);
-        const amountItemsInCart = cartProducts?.reduce(
+        const amountItemsInCart = data?.reduce(
           (total, item) => total + item.price,
           0
         );
+        console.log(amountItemsInCart);
         setAmount(amountItemsInCart);
       } catch (e) {
         if (e) setError(e);
