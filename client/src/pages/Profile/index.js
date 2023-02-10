@@ -10,6 +10,7 @@ import MyFeedBack from "./MyFeedback";
 import MyPasswordChange from "./MyPasswordChange";
 import jwt_decode from "jwt-decode";
 import * as api from "../../api/index";
+import {useLangauges} from "../../contexts/Langauges";
 const styles = {
   navLink:
     "flex justify-end gap-2 items-center py-4 border-b-[0.5px] border-gray-600 w-full pr-2",
@@ -18,6 +19,7 @@ const styles = {
 };
 
 const Profile = ({favoraitProducts, setFavoraitProducts}) => {
+  const langaugesContext = useLangauges();
   const user = jwt_decode(
     JSON.parse(localStorage.getItem("userEcommerce")).token
   );
@@ -37,7 +39,6 @@ const Profile = ({favoraitProducts, setFavoraitProducts}) => {
           navigait("/");
         } else {
           setUserData(data);
-          //console.log(data);
         }
       } catch (e) {
         if (e) setError(e);
@@ -56,7 +57,9 @@ const Profile = ({favoraitProducts, setFavoraitProducts}) => {
     <div className="flex flex-col items-center text-end">
       <div className="flex flex-col gap-2">
         <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-          معلوماتك الشخصية
+          {langaugesContext.langauge === "ar"
+            ? "معلوماتك الشخصية"
+            : "Your personal information"}
         </h2>
         <div className="flex justify-center items-center gap-2 text-gray-400 tracking-[-3px] ">
           <div className="w-20 h-[2px] bg-gray-400" />
@@ -64,7 +67,13 @@ const Profile = ({favoraitProducts, setFavoraitProducts}) => {
           <div className="w-20 h-[2px] bg-gray-400" />
         </div>
       </div>
-      <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:items-start rounded text-end p-8  bg-gray-100 rounded-lg w-full ">
+      <div
+        className={
+          langaugesContext.langauge === "ar"
+            ? "flex flex-col md:flex-row items-center justify-between gap-6 md:items-start rounded text-end p-8  bg-gray-100 rounded-lg w-full "
+            : "flex flex-col md:flex-row-reverse items-center justify-between gap-6 md:items-start rounded text-end p-8  bg-gray-100 rounded-lg w-full "
+        }
+      >
         <div className="w-full max-w-md space-y-8">
           <Routes>
             <Route path="" element={<MyData user={user} />} />
@@ -90,7 +99,13 @@ const Profile = ({favoraitProducts, setFavoraitProducts}) => {
         </div>
         <div>
           <section className="flex flex-col justify-center items-center gap-4 bg-black p-4 pr-0 text-white w-80">
-            <div className="flex flex-col justify-end items-end gap-4 p-4 pr-0 text-white w-full">
+            <div
+              className={
+                langaugesContext.langauge === "ar"
+                  ? "flex flex-col justify-end items-end gap-4 p-4 pr-0 text-white w-full"
+                  : "flex flex-col justify-start items-start gap-4 p-4 pr-0 text-white w-full"
+              }
+            >
               <NavLink
                 to={"/account"}
                 className={
@@ -99,7 +114,10 @@ const Profile = ({favoraitProducts, setFavoraitProducts}) => {
               >
                 <BsArrowRightShort />
                 <div className={styles.navLink}>
-                  البيانات الشخصية
+                  {langaugesContext.langauge === "ar"
+                    ? "البيانات الشخصية"
+                    : "Personal data"}
+
                   <IoPersonOutline />
                 </div>
               </NavLink>
@@ -111,7 +129,7 @@ const Profile = ({favoraitProducts, setFavoraitProducts}) => {
               >
                 <BsArrowRightShort />
                 <div className={styles.navLink}>
-                  المفضلة
+                  {langaugesContext.langauge === "ar" ? "المفضلة" : "Favorait"}
                   <IoPersonOutline />
                 </div>
               </NavLink>
@@ -123,7 +141,7 @@ const Profile = ({favoraitProducts, setFavoraitProducts}) => {
               >
                 <BsArrowRightShort />
                 <div className={styles.navLink}>
-                  طلباتي
+                  {langaugesContext.langauge === "ar" ? "طلباتي" : "My orders"}
                   <IoPersonOutline />
                 </div>
               </NavLink>
@@ -135,7 +153,10 @@ const Profile = ({favoraitProducts, setFavoraitProducts}) => {
               >
                 <BsArrowRightShort />
                 <div className={styles.navLink}>
-                  نقاط المكافئة
+                  {langaugesContext.langauge === "ar"
+                    ? "نقاط المكافئة"
+                    : "reward points"}
+
                   <IoPersonOutline />
                 </div>
               </NavLink>
@@ -147,7 +168,10 @@ const Profile = ({favoraitProducts, setFavoraitProducts}) => {
               >
                 <BsArrowRightShort />
                 <div className={styles.navLink}>
-                  تغيير كلمة المرور
+                  {langaugesContext.langauge === "ar"
+                    ? "تغيير كلمة المرور"
+                    : "Change password"}
+
                   <IoPersonOutline />
                 </div>
               </NavLink>
@@ -159,7 +183,9 @@ const Profile = ({favoraitProducts, setFavoraitProducts}) => {
               >
                 <BsArrowRightShort />
                 <div className={styles.navLink}>
-                  تقييماتي
+                  {langaugesContext.langauge === "ar"
+                    ? "تقييماتي"
+                    : "My reviews"}
                   <IoPersonOutline />
                 </div>
               </NavLink>
@@ -171,7 +197,7 @@ const Profile = ({favoraitProducts, setFavoraitProducts}) => {
                 navigait("/");
               }}
             >
-              تسجيل خروج
+              {langaugesContext.langauge === "ar" ? "تسجيل خروج" : "Log out"}
             </button>
           </section>
         </div>

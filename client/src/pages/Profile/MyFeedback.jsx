@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
+import {useLangauges} from "../../contexts/Langauges";
 
 const styles = {
   navLink:
@@ -16,14 +17,11 @@ const initialState = {
 };
 
 const MyFeedBack = () => {
+  const langaugesContext = useLangauges();
   const [formData, setFormData] = useState(initialState);
-  const [showPassword, setShowPassword] = useState(false);
-  const [isSignup, setIsSignup] = useState(false);
-  const navigait = useNavigate();
 
   const handleSubmit = async e => {
     e.preventDefault();
-
     // const {data} = await api.signin(formData);
     // localStorage.setItem("userEcommerce", JSON.stringify(data));
     // navigait("/");
@@ -34,7 +32,11 @@ const MyFeedBack = () => {
 
   return (
     <section>
-      <h1>لم تقم بكتابة اى تقييمات بعد</h1>
+      <h1 className="text-center font-bold text-2xl mb-20">
+        {langaugesContext.langauge === "ar"
+          ? "لم تقم بكتابة اى تقييمات بعد"
+          : "You have not written any reviews yet"}
+      </h1>
     </section>
   );
 };

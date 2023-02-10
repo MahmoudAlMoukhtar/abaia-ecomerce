@@ -7,13 +7,14 @@ import Pay from "../../components/Pay";
 import GoSellDemo from "../../components/GoSellDemo";
 //import useFetchAll from "../../services/useFetchAll";
 import jwt_decode from "jwt-decode";
+import {useLangauges} from "../../contexts/Langauges";
 const CartPage = ({updateQuantity, cartProducts, setCartProducts}) => {
+  const langaugesContext = useLangauges();
   const user = jwt_decode(
     JSON.parse(localStorage.getItem("userEcommerce")).token
   );
   const navigate = useNavigate();
   const [amount, setAmount] = useState();
-
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -21,12 +22,12 @@ const CartPage = ({updateQuantity, cartProducts, setCartProducts}) => {
       try {
         const {data} = await api.fetchCart();
         setCartProducts(data);
-        console.log(data);
+        //console.log(data);
         const amountItemsInCart = data?.reduce(
           (total, item) => total + item.price,
           0
         );
-        console.log(amountItemsInCart);
+        //console.log(amountItemsInCart);
         setAmount(amountItemsInCart);
       } catch (e) {
         if (e) setError(e);
@@ -41,18 +42,12 @@ const CartPage = ({updateQuantity, cartProducts, setCartProducts}) => {
   if (loading)
     return <h1 className="text-center font-bold text-5xl my-40">Loading...</h1>;
 
-  //console.log("products", cartProducts);
-
-  // const numberItemsInCart = cartProducts?.reduce(
-  //   (total, item) => total + item.quantity,
-  //   0
-  // );
   return (
     <React.Fragment>
       <div className="pt-12">
         <div>
           <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-            سلة التسوق
+            {langaugesContext.langauge === "ar" ? "سلة التسوق" : "Cart"}
           </h2>
           <div className="flex justify-center items-center gap-2 text-gray-400 tracking-[-3px] ">
             <div className="w-20 h-[2px] bg-gray-400" />
@@ -66,7 +61,9 @@ const CartPage = ({updateQuantity, cartProducts, setCartProducts}) => {
       <section className="flex flex-col gap-8 mt-10">
         {cartProducts.length === 0 && (
           <h1 className="text-center font-bold text-2xl mb-20">
-            لا يوجد منتجات فى سلة التسوق
+            {langaugesContext.langauge === "ar"
+              ? "لا يوجد منتجات فى سلة التسوق"
+              : "There are no products in the cart"}
           </h1>
         )}
         <div

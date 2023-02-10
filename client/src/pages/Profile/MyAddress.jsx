@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import CartItem from "../../components/CartItem";
 import * as api from "../../api/index";
+import {useLangauges} from "../../contexts/Langauges";
 
 const styles = {
   cardItemCart:
@@ -9,6 +10,7 @@ const styles = {
 };
 
 const MyAddress = ({user, favoraitProducts, setFavoraitProducts}) => {
+  const langaugesContext = useLangauges();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigait = useNavigate();
@@ -34,7 +36,9 @@ const MyAddress = ({user, favoraitProducts, setFavoraitProducts}) => {
   if (favoraitProducts.length === 0)
     return (
       <h1 className="text-center font-bold text-3xl my-40">
-        لايوجد منتجات مفضلة لديك
+        {langaugesContext.langauge === "ar"
+          ? "لايوجد منتجات مفضلة لديك"
+          : "You do not have any favorite products"}
       </h1>
     );
   return (

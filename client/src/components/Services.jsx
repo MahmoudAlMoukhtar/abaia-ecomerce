@@ -57,7 +57,7 @@ const Services = () => {
           nameGroup={
             langaugesContext.langauge === "ar"
               ? "مجموعة المناسبات"
-              : "المناسبات group"
+              : "Occasion group"
           }
         />
         <Group
