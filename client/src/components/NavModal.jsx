@@ -1,6 +1,7 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
 import {BsArrowDownShort} from "react-icons/bs";
+import {useLangauges} from "../contexts/Langauges";
 
 const activeStyle = {
   color: "white",
@@ -18,7 +19,8 @@ const styles = {
     "fixed inset-0 bg-opacity-75 transition-opacity flex flex-col justify-center items-center z-50",
 };
 
-const NavbarModal = ({setNavBarModal, navbarModal}) => {
+const NavbarModal = ({setNavBarModal, navbarModal, langauge, setLangauge}) => {
+  const langaugesContext = useLangauges();
   return (
     <div
       id="modal-nav"
@@ -47,39 +49,46 @@ const NavbarModal = ({setNavBarModal, navbarModal}) => {
             end
             className={styles.linkPages}
           >
-            الصفحة الرئيسية
+            {langaugesContext.langauge === "ar" ? "الصفحة الرئيسية" : "Home"}
           </NavLink>
+
           <NavLink
             style={({isActive}) => (isActive ? activeStyle : undefined)}
             to="/كل المنتجات"
             className={styles.linkPages}
+            onMouseOver={() => {
+              //setShow(true);
+            }}
+            onMouseOut={() => {
+              //setShow(false);
+            }}
           >
-            الأقسام
-            <span className="absolute top-[-10px] right-[-20px]">
-              <BsArrowDownShort color="black" />
-            </span>
+            {langaugesContext.langauge === "ar" ? "الأقسام" : "Sections"}
           </NavLink>
+
           <NavLink
             style={({isActive}) => (isActive ? activeStyle : undefined)}
             to="/about"
             className={styles.linkPages}
           >
-            من نحن
+            {langaugesContext.langauge === "ar" ? "من نحن" : "About us"}
           </NavLink>
 
           <NavLink
             style={({isActive}) => (isActive ? activeStyle : undefined)}
-            to="/blogs"
+            to="/منتجات جديدة"
             className={styles.linkPages}
           >
-            منتجات جديدة
+            {langaugesContext.langauge === "ar"
+              ? "منتجات جديدة"
+              : "New products"}
           </NavLink>
           <NavLink
             style={({isActive}) => (isActive ? activeStyle : undefined)}
             to="/account"
             className={styles.linkPages}
           >
-            حسابي
+            {langaugesContext.langauge === "ar" ? "حسابي" : "My Account"}
           </NavLink>
         </ul>
       </div>

@@ -1,13 +1,14 @@
 import React, {useState} from "react";
 import useFetch from "../services/useFetch";
 import Product from "./Product";
-
+import {useLangauges} from "../contexts/Langauges";
 const ProductsSection = () => {
-  const {data, setData, loading, error} = useFetch("products");
+  const langaugesContext = useLangauges();
+  const {data, loading, error} = useFetch("products");
   const [filterData, setFilterData] = useState("auto");
 
   const categoriesPrds = data?.map(p => p.category);
-  const uniqueCategories = [...new Set(categoriesPrds)];
+  //const uniqueCategories = [...new Set(categoriesPrds)];
 
   const productsSort = data?.sort((a, b) => {
     if (filterData === "sales") {
@@ -47,7 +48,9 @@ const ProductsSection = () => {
       className="flex flex-col gap-2 justify-center items-center w-full"
       id=""
     >
-      <h2 className="text-3xl">المنتجات</h2>
+      <h2 className="text-3xl">
+        {langaugesContext.langauge === "ar" ? "المنتجات" : "Products"}
+      </h2>
       <div className="flex justify-center items-center gap-2 text-gray-400 tracking-[-3px] ">
         <div className="w-20 h-[2px] bg-gray-400" />
         {"///"}
@@ -60,19 +63,21 @@ const ProductsSection = () => {
             setFilterData("sales");
           }}
         >
-          الأكثر مبيعاً
+          {langaugesContext.langauge === "ar" ? "الأكثر مبيعاً" : "Most Sales"}
         </button>
         <button
           className="pb-7 transition duration-200 border-white border-b-4 hover:border-black borderr"
           onClick={() => setFilterData("new")}
         >
-          منتجات جديدة
+          {langaugesContext.langauge === "ar" ? "منتجات جديدة" : "New products"}
         </button>
         <button
           className="pb-7 transition duration-200 border-white border-b-4 hover:border-black borderr"
           onClick={() => setFilterData("deffrent")}
         >
-          منتجات مميزة
+          {langaugesContext.langauge === "ar"
+            ? "منتجات مميزة"
+            : "Deffrent products"}
         </button>
       </ul>
       <div className="h-[1px] w-full bg-gray-200 translate-y-[-8px]"></div>

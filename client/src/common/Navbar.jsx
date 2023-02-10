@@ -6,6 +6,7 @@ import {IoPersonOutline} from "react-icons/io5";
 import {FiShoppingCart, FiSearch, FiHeart} from "react-icons/fi";
 import {BsArrowDownShort} from "react-icons/bs";
 import jwt_decode from "jwt-decode";
+import {useLangauges} from "../contexts/Langauges";
 const activeStyle = {
   color: "white",
   backgroundColor: "black",
@@ -21,11 +22,13 @@ const styles = {
 };
 
 const Navbar = ({
+  setLangauge,
   cartProducts,
   favoraitProducts,
   setNavBarModal,
   navbarModal,
 }) => {
+  const langaugesContext = useLangauges();
   const [countCartProducts, setCountCartProducts] = useState();
   const [countFavProducts, setCountFavProducts] = useState();
   const navigait = useNavigate();
@@ -49,7 +52,13 @@ const Navbar = ({
     }
   }, [cartProducts, favoraitProducts]);
   return (
-    <nav className="flex flex-row-reverse justify-between items-center p-8 py-4 w-[100%] ">
+    <nav
+      className={
+        langaugesContext.langauge === "ar"
+          ? "flex flex-row-reverse justify-between items-center p-8 py-4 w-[100%]"
+          : "flex flex-row justify-between items-center p-8 py-4 w-[100%]"
+      }
+    >
       <HiMenuAlt1
         size={30}
         onClick={() => setNavBarModal(!navbarModal)}
@@ -58,14 +67,20 @@ const Navbar = ({
       <Link to="/" className="flex">
         <h6 className="text-2xl text-center">MELISSIA</h6>
       </Link>
-      <ul className="hidden absolute lg:flex lg:static flex-row-reverse font-semibold  text-sm sm:text-md gap-x-2  sm:items-center sm:gap-x-2 md:gap-x-8 ">
+      <ul
+        className={
+          langaugesContext.langauge === "ar"
+            ? "hidden absolute lg:flex lg:static flex-row-reverse font-semibold  text-sm sm:text-md gap-x-2  sm:items-center sm:gap-x-2 md:gap-x-8 "
+            : "hidden absolute lg:flex lg:static flex-row font-semibold  text-sm sm:text-md gap-x-2  sm:items-center sm:gap-x-2 md:gap-x-8 "
+        }
+      >
         <NavLink
           style={({isActive}) => (isActive ? activeStyle : undefined)}
           to="/"
           end
           className={styles.linkPages}
         >
-          الصفحة الرئيسية
+          {langaugesContext.langauge === "ar" ? "الصفحة الرئيسية" : "Home"}
         </NavLink>
 
         <NavLink
@@ -79,7 +94,7 @@ const Navbar = ({
             //setShow(false);
           }}
         >
-          الأقسام
+          {langaugesContext.langauge === "ar" ? "الأقسام" : "Sections"}
         </NavLink>
 
         <NavLink
@@ -87,7 +102,7 @@ const Navbar = ({
           to="/about"
           className={styles.linkPages}
         >
-          من نحن
+          {langaugesContext.langauge === "ar" ? "من نحن" : "About us"}
         </NavLink>
 
         <NavLink
@@ -95,20 +110,32 @@ const Navbar = ({
           to="/منتجات جديدة"
           className={styles.linkPages}
         >
-          منتجات جديدة
+          {langaugesContext.langauge === "ar" ? "منتجات جديدة" : "New products"}
         </NavLink>
         <NavLink
           style={({isActive}) => (isActive ? activeStyle : undefined)}
           to="/account"
           className={styles.linkPages}
         >
-          حسابي
+          {langaugesContext.langauge === "ar" ? "حسابي" : "My Account"}
         </NavLink>
       </ul>
       <div className="flex items-center  gap-4">
-        <button className="font-semibold hidden absolute sm:flex sm:static">
-          Eng
-        </button>
+        {langaugesContext.langauge === "ar" ? (
+          <button
+            className="font-semibold hidden absolute sm:flex sm:static"
+            onClick={() => langaugesContext.setLangauge("eng")}
+          >
+            Eng
+          </button>
+        ) : (
+          <button
+            className="font-semibold hidden absolute sm:flex sm:static"
+            onClick={() => langaugesContext.setLangauge("ar")}
+          >
+            Ar
+          </button>
+        )}
         <NavLink
           to="/auth"
           className="hidden absolute sm:flex sm:static cursor-pointer"

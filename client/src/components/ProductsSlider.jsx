@@ -76,7 +76,6 @@ export default function ProductsSlider() {
           }}
           speed={700}
           loop={true}
-          onSlideChange={() => console.log("change")}
         >
           <SwiperSlide className="h-screen">
             <SlideProduct image="/images/abaya/0001771.png" />

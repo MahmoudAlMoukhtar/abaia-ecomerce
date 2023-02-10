@@ -21,6 +21,7 @@ import jwt_decode from "jwt-decode";
 import PrivaitRoute from "./components/PrivaitRoute";
 import {List, ListItem, ListItemText} from "@material-ui/core";
 import SearchPage from "./pages/ٍSearch/index";
+import {LangaugesProvider} from "./contexts/Langauges";
 export default function App() {
   const [navBarModal, setNavBarModal] = useState(false);
   const [show, setShow] = useState(false);
@@ -30,89 +31,78 @@ export default function App() {
     <React.Fragment>
       <ScrollToTop />
       <div className="w-[100%]">
-        <Navbar
-          setNavBarModal={setNavBarModal}
-          navbarModal={navBarModal}
-          show={show}
-          setShow={setShow}
-          cartProducts={cartProducts}
-          favoraitProducts={favoraitProducts}
-        />
-        <NavbarModal
-          setNavBarModal={setNavBarModal}
-          navbarModal={navBarModal}
-        />
-        <List
-          className={
-            show
-              ? "block absolute top-[20px] left-[40px] shadow-lg w-80"
-              : "hidden absolute "
-          }
-        >
-          <ListItem disablePadding>
-            <ListItemText primary="Trash" />
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemText primary="Spam" />
-          </ListItem>
-        </List>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <HomePage
-                setNavBarModal={setNavBarModal}
-                navbarModal={navBarModal}
-              />
-            }
+        <LangaugesProvider>
+          <Navbar
+            setNavBarModal={setNavBarModal}
+            navbarModal={navBarModal}
+            show={show}
+            setShow={setShow}
+            cartProducts={cartProducts}
+            favoraitProducts={favoraitProducts}
           />
-          <Route
-            path="/about"
-            element={
-              <AboutPage
-                setNavBarModal={setNavBarModal}
-                navbarModal={navBarModal}
-              />
-            }
+          <NavbarModal
+            setNavBarModal={setNavBarModal}
+            navbarModal={navBarModal}
           />
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/register" element={<AuthRegister />} />
-          <Route path="/:category" element={<ShopPage />} />
-          <Route
-            path="/account/*"
-            element={
-              <PrivaitRoute>
-                <Profile
+
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <HomePage
+                  setNavBarModal={setNavBarModal}
+                  navbarModal={navBarModal}
+                />
+              }
+            />
+            <Route
+              path="/about"
+              element={
+                <AboutPage
+                  setNavBarModal={setNavBarModal}
+                  navbarModal={navBarModal}
+                />
+              }
+            />
+            <Route path="/auth" element={<Auth />} />
+            <Route path="/register" element={<AuthRegister />} />
+            <Route path="/:category" element={<ShopPage />} />
+            <Route
+              path="/account/*"
+              element={
+                <PrivaitRoute>
+                  <Profile
+                    favoraitProducts={favoraitProducts}
+                    setFavoraitProducts={setFavoraitProducts}
+                  />
+                </PrivaitRoute>
+              }
+            />
+            <Route
+              path="/:category/:id"
+              element={
+                <DetailProduct
+                  setNavBarModal={setNavBarModal}
                   favoraitProducts={favoraitProducts}
                   setFavoraitProducts={setFavoraitProducts}
                 />
-              </PrivaitRoute>
-            }
-          />
-          <Route
-            path="/:category/:id"
-            element={
-              <DetailProduct
-                setNavBarModal={setNavBarModal}
-                favoraitProducts={favoraitProducts}
-                setFavoraitProducts={setFavoraitProducts}
-              />
-            }
-          />
-          <Route
-            path="/cart"
-            element={
-              <PrivaitRoute>
-                <CartPage
-                  cartProducts={cartProducts}
-                  setCartProducts={setCartProducts}
-                />
-              </PrivaitRoute>
-            }
-          />
-          <Route path="/search" element={<SearchPage />} />
-        </Routes>
-        <Footer />
+              }
+            />
+            <Route
+              path="/cart"
+              element={
+                <PrivaitRoute>
+                  <CartPage
+                    cartProducts={cartProducts}
+                    setCartProducts={setCartProducts}
+                  />
+                </PrivaitRoute>
+              }
+            />
+            <Route path="/search" element={<SearchPage />} />
+          </Routes>
+          <Footer />
+        </LangaugesProvider>
       </div>
     </React.Fragment>
   );

@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {BiShowAlt, BiHide} from "react-icons/bi";
 import {Navigate, useNavigate} from "react-router-dom";
 import * as api from "../api/index";
+import {useLangauges} from "../contexts/Langauges";
 
 const initialState = {
   email: "",
@@ -14,8 +15,8 @@ const STATUS = {
   COMPLETED: "COMPLETED",
 };
 const Auth = () => {
+  const langaugesContext = useLangauges();
   const user = JSON.parse(localStorage.getItem("userEcommerce"));
-
   const [formData, setFormData] = useState(initialState);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -71,7 +72,9 @@ const Auth = () => {
     <div className="flex flex-col items-center text-end">
       <div className="flex flex-col gap-2">
         <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-          ! مرحبا. يرجى تسجيل الدخول
+          {langaugesContext.langauge === "ar"
+            ? "! مرحبا. يرجى تسجيل الدخول"
+            : "Welcome.Signin to your account!"}
         </h2>
         <div className="flex justify-center items-center gap-2 text-gray-400 tracking-[-3px] ">
           <div className="w-20 h-[2px] bg-gray-400" />
@@ -80,17 +83,27 @@ const Auth = () => {
         </div>
       </div>
 
-      <div className="flex justify-between items-center rounded text-end p-20 bg-gray-100 rounded-lg w-full mx-20">
+      <div
+        className={
+          langaugesContext.langauge === "ar"
+            ? "flex justify-between items-center rounded text-end p-20 bg-gray-100 rounded-lg w-full mx-20"
+            : "flex flex-row-reverse justify-between items-center rounded text-end p-20 bg-gray-100 rounded-lg w-full mx-20"
+        }
+      >
         <div className="w-full max-w-md space-y-8">
           <div>
             <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-              {"إنشاء حساب"}
+              {langaugesContext.langauge === "ar"
+                ? "إنشاء حساب"
+                : "Create account"}
             </h2>
           </div>
           <form className="mt-8 space-y-6" action="#" method="POST">
             {status === STATUS.COMPLETED && (
               <p className="bg-green-300 p-2 rounded-md text-white font-semibold text-center">
-                Sign in successfully!
+                {langaugesContext.langauge === "ar"
+                  ? "!تم تسجيل دخولك بتجاح"
+                  : "Sign in successfully!"}
               </p>
             )}
             {!isValid && status === STATUS.SUBMITTED && (
@@ -173,7 +186,9 @@ const Auth = () => {
                   href="#"
                   className="font-medium text-[#214252] hover:text-[#214252]"
                 >
-                  نسيت كلمة المرور؟
+                  {langaugesContext.langauge === "ar"
+                    ? "نسيت كلمة المرور؟"
+                    : "Forget your password?"}
                 </a>
               </div>
             </div>
@@ -183,7 +198,7 @@ const Auth = () => {
                 className="group relative flex w-full justify-center rounded-md border border-transparent bg-black py-2 px-4 text-sm font-medium text-white hover:bg-black focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 onClick={handleSubmit}
               >
-                {"تسجيل دخول"}
+                {langaugesContext.langauge === "ar" ? "تسجيل دخول" : "Signin"}
               </button>
             </div>
 
@@ -195,7 +210,9 @@ const Auth = () => {
                     onClick={() => navigait("/register")}
                     className="font-bold"
                   >
-                    إنشاء حساب
+                    {langaugesContext.langauge === "ar"
+                      ? "إنشاء حساب"
+                      : "Create account"}
                   </button>
                 </div>
               }

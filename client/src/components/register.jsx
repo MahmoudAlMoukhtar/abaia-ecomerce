@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {BiShowAlt, BiHide} from "react-icons/bi";
 import {useNavigate} from "react-router-dom";
 import * as api from "../api/index";
+import {useLangauges} from "../contexts/Langauges";
 //import {gapi} from "gapi-script";
 //import {GoogleLogin} from "react-google-login";
 const styles = {
@@ -26,6 +27,7 @@ const STATUS = {
 };
 
 const AuthRegister = () => {
+  const langaugesContext = useLangauges();
   const [formData, setFormData] = useState(initialState);
   const [showPassword, setShowPassword] = useState(false);
   const [saveError, setSaveError] = useState(null);
@@ -85,7 +87,7 @@ const AuthRegister = () => {
     <div className="flex flex-col justify-center items-center text-end">
       <div>
         <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-          حساب جديد
+          {langaugesContext.langauge === "ar" ? "حساب جديد" : "New account"}
         </h2>
         <div className="flex justify-center items-center gap-2 text-gray-400 tracking-[-3px] ">
           <div className="w-20 h-[2px] bg-gray-400" />
@@ -95,7 +97,9 @@ const AuthRegister = () => {
       </div>
       {status === STATUS.COMPLETED && (
         <p className="bg-green-300 p-2 rounded-md text-white font-semibold text-center">
-          Your account created successfully!
+          {langaugesContext.langauge === "ar"
+            ? "تم تسجيل دخولك بنجاح"
+            : "Your account created successfully!"}
         </p>
       )}
       {!isValid && status === STATUS.SUBMITTED && (
@@ -219,7 +223,9 @@ const AuthRegister = () => {
             className="group relative flex w-full justify-center rounded-md border border-transparent bg-black py-2 px-4 text-sm font-medium text-white hover:bg-black focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             onClick={handleSubmit}
           >
-            إنشاء حساب
+            {langaugesContext.langauge === "ar"
+              ? "إنشاء حساب"
+              : "Create account"}
           </button>
         </div>
       </form>

@@ -3,7 +3,7 @@ import ProductsSlider from "../../components/ProductsSlider";
 import Services from "../../components/Services";
 import MainHeader from "../../components/MainHeader";
 import ProductsSection from "../../components/ProductsSection";
-const HomePage = ({setNavBarModal, navbarModal}) => {
+const HomePage = () => {
   return (
     <div className="flex flex-col gap-20">
       <MainHeader title="Welcome to our store" />

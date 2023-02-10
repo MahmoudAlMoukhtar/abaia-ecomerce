@@ -1,10 +1,20 @@
 import React from "react";
+import {useLangauges} from "../../contexts/Langauges";
 
 const AboutPage = () => {
+  const langaugesContext = useLangauges();
   return (
-    <div className="flex justify-center items-start gap-10 px-8 md:px-20 mt-20 text-end flex-col-reverse md:flex-row ">
+    <div
+      className={
+        langaugesContext.langauge === "ar"
+          ? "flex justify-center items-start gap-10 px-8 md:px-20 mt-20 text-end flex-col-reverse md:flex-row"
+          : "flex justify-center items-start gap-10 px-8 md:px-20 mt-20 text-end flex-col-reverse md:flex-row-reverse"
+      }
+    >
       <div className="flex flex-col  justify-end items-end gap-8 w-full md:w-1/2">
-        <h3 className="text-2xl font-semibold">من نحن</h3>
+        <h3 className="text-2xl font-semibold">
+          {langaugesContext.langauge === "ar" ? "من نحن" : "About us"}
+        </h3>
         <div className="flex justify-end items-center gap-2 text-gray-400 tracking-[-3px] text-gray-300">
           <div className="w-20 h-[2px] bg-gray-400" />
           {"///"}
