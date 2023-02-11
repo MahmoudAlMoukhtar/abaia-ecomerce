@@ -7,9 +7,6 @@ const ProductsSection = () => {
   const {data, loading, error} = useFetch("products");
   const [filterData, setFilterData] = useState("auto");
 
-  const categoriesPrds = data?.map(p => p.category);
-  //const uniqueCategories = [...new Set(categoriesPrds)];
-
   const productsSort = data?.sort((a, b) => {
     if (filterData === "sales") {
       if (a.numberSell > b.numberSell) {
@@ -83,7 +80,7 @@ const ProductsSection = () => {
       <div className="h-[1px] w-full bg-gray-200 translate-y-[-8px]"></div>
       <div className="flex justify-center gap-10 flex-wrap w-full px-8">
         {filteredProducts.map(p => (
-          <Product product={p} />
+          <Product product={p} key={p._id} />
         ))}
       </div>
     </section>

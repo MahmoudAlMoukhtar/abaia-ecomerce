@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {BiShowAlt, BiHide} from "react-icons/bi";
 import {Navigate, useNavigate} from "react-router-dom";
-import * as api from "../api/index";
-import {useLangauges} from "../contexts/Langauges";
+import {useLangauges} from "../../contexts/Langauges";
+import * as api from "../../api/index";
 
 const initialState = {
   email: "",
@@ -15,8 +15,8 @@ const STATUS = {
   COMPLETED: "COMPLETED",
 };
 const Auth = () => {
-  const langaugesContext = useLangauges();
   const user = JSON.parse(localStorage.getItem("userEcommerce"));
+  const langaugesContext = useLangauges();
   const [formData, setFormData] = useState(initialState);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -24,6 +24,7 @@ const Auth = () => {
   const [touche, setTouche] = useState({});
   const [status, setStatus] = useState(STATUS.IDLE);
   const navigait = useNavigate();
+
   if (user) {
     return <Navigate to="/account" replace />;
   }

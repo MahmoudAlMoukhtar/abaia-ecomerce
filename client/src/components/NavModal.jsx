@@ -1,6 +1,5 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
-import {BsArrowDownShort} from "react-icons/bs";
 import {useLangauges} from "../contexts/Langauges";
 
 const activeStyle = {
@@ -56,12 +55,6 @@ const NavbarModal = ({setNavBarModal, navbarModal, langauge, setLangauge}) => {
             style={({isActive}) => (isActive ? activeStyle : undefined)}
             to="/كل المنتجات"
             className={styles.linkPages}
-            onMouseOver={() => {
-              //setShow(true);
-            }}
-            onMouseOut={() => {
-              //setShow(false);
-            }}
           >
             {langaugesContext.langauge === "ar" ? "الأقسام" : "Sections"}
           </NavLink>

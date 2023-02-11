@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import * as api from "../api/index";
+
 const styles = {
   cardItemCart:
     "cart-item bg-white flex flex-col-reverse px-4 sm:flex-row justify-end gap-4 sm:gap-20 sm:items-center shadow-2xl py-2 transition duration-200 cursor-default	border-2 border-gray-600 text-sm",
@@ -47,7 +48,6 @@ const CartItem = ({itemInCart, setCartProducts, cartProducts}) => {
   const {idProduct, price, name, image, quantity, standard} = itemInCart;
   const [counter, setCounter] = useState(quantity);
 
-  //const {size} = skus.find(s => s.sku === sku);
   return (
     <li className={styles.cardItemCart}>
       <button
@@ -77,6 +77,3 @@ const CartItem = ({itemInCart, setCartProducts, cartProducts}) => {
   );
 };
 export default CartItem;
-/* 
-updateQuantity(sku, parseInt(e.target.value))
-*/

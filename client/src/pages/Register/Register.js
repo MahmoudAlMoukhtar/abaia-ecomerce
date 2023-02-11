@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from "react";
 import {BiShowAlt, BiHide} from "react-icons/bi";
 import {useNavigate} from "react-router-dom";
-import * as api from "../api/index";
-import {useLangauges} from "../contexts/Langauges";
-//import {gapi} from "gapi-script";
-//import {GoogleLogin} from "react-google-login";
+import * as api from "../../api/index";
+import {useLangauges} from "../../contexts/Langauges";
+
 const styles = {
   filed:
     "relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm",

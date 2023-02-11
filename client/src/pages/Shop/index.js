@@ -1,17 +1,13 @@
 import React, {useEffect, useState} from "react";
-import Products from "../../components/Products";
-import Header from "../../common/Navbar";
-import MainHeader from "../../components/MainHeader";
 import {Link, useParams} from "react-router-dom";
-import {DataGrid} from "@material-ui/data-grid";
 import {Pagination} from "@material-ui/lab";
 import usePagination from "../../components/Pagination";
 import Product from "../../components/Product";
 import {BsCircle} from "react-icons/bs";
 import {FormControl, InputLabel, MenuItem, Select} from "@material-ui/core";
 import useFetch from "../../services/useFetch";
-import Spinner from "../../Spinner";
-const ShopPage = ({addToCart, setNavBarModal}) => {
+
+const ShopPage = () => {
   const {data, loading, error} = useFetch("products");
   const [page, setPage] = useState(1);
   const [filterData, setFilterData] = useState("auto");
@@ -59,7 +55,7 @@ const ShopPage = ({addToCart, setNavBarModal}) => {
     setPage(p);
     _DATA.jump(p);
   };
-  console.log(category);
+
   if (error) throw error;
   if (loading)
     return <h1 className="text-center font-bold text-5xl my-40">Loading...</h1>;
@@ -67,9 +63,6 @@ const ShopPage = ({addToCart, setNavBarModal}) => {
     return (
       <h1 className="text-center font-bold text-5xl my-40">Not Fount Page!</h1>
     );
-
-  // console.log(uniqueCategories);
-  // console.log(productsSort);
 
   return (
     <div className="flex flex-col gap-6 text-end px-2 sm:px-8 md:px-20">
@@ -171,81 +164,3 @@ const ShopPage = ({addToCart, setNavBarModal}) => {
 };
 
 export default ShopPage;
-/* 
- const products = [
-    {
-      name: "بليزر بقصه بالخلف",
-      price: 664.65,
-      category: "المجموعة العملية",
-      description: "فثسف",
-      stock: 20,
-      image: "/images/abaya/6599276-1812097308.jpg",
-    },
-    {
-      name: "دبل كلوش",
-      price: 664.38,
-      category: "المجموعة الشتوية",
-      description: "فثسف",
-      stock: 20,
-      image: "/images/abaya/download.jpg",
-    },
-    {
-      price: 664.38,
-      name: "خطوط كرستال",
-      category: "مجموعة المناسبات",
-      description: "فثسف",
-      stock: 20,
-      image: "/images/abaya/photo6021473282487858379.jpg",
-    },
-    {
-      price: 664.65,
-      name: "بليزر بقصه بالخلف",
-      category: "المجموعة العملية",
-      description: "فثسف",
-      stock: 20,
-      image: "/images/abaya/7875456-1842458720.jpg",
-    },
-    {
-      price: 664.38,
-      name: "دبل كلوش",
-
-      category: "المجموعة الاضافية",
-      description: "فثسف",
-      stock: 20,
-      image: "/images/abaya/test.jpg",
-    },
-    {
-      price: 664.38,
-      name: "خطوط كرستال",
-      category: "المجموعة اليومية",
-      description: "فثسف",
-      stock: 20,
-      image: "/images/abaya/test2.jpg",
-    },
-    {
-      price: 664.65,
-      name: "بليزر بقصه بالخلف",
-      category: "المجموعة الشتوية",
-      description: "فثسف",
-      stock: 20,
-      image: "/images/abaya/test3.jpg",
-    },
-    {
-      price: 664.38,
-      name: "دبل كلوش",
-      category: "مجموعة المناسبات",
-      description: "فثسف",
-      stock: 20,
-      image: "/images/abaya/download.jpg",
-    },
-    {
-      price: 664.38,
-      name: "خطوط كرستال",
-      category: "المجموعة اليومية",
-      description: "فثسف",
-      stock: 20,
-      image: "/images/abaya/photo6021473282487858379.jpg",
-    },
-  ];
- 
-*/

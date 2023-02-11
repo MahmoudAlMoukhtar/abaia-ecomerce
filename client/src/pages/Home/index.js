@@ -1,5 +1,4 @@
 import React from "react";
-import ProductsSlider from "../../components/ProductsSlider";
 import Services from "../../components/Services";
 import MainHeader from "../../components/MainHeader";
 import ProductsSection from "../../components/ProductsSection";

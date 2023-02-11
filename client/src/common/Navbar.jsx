@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from "react";
 import {Link, NavLink, useNavigate} from "react-router-dom";
 import {HiMenuAlt1} from "react-icons/hi";
-import * as api from "../api/index";
 import {IoPersonOutline} from "react-icons/io5";
 import {FiShoppingCart, FiSearch, FiHeart} from "react-icons/fi";
-import {BsArrowDownShort} from "react-icons/bs";
-import jwt_decode from "jwt-decode";
 import {useLangauges} from "../contexts/Langauges";
+import jwt_decode from "jwt-decode";
+import * as api from "../api/index";
 const activeStyle = {
   color: "white",
   backgroundColor: "black",
@@ -22,7 +21,6 @@ const styles = {
 };
 
 const Navbar = ({
-  setLangauge,
   cartProducts,
   favoraitProducts,
   setNavBarModal,
@@ -87,12 +85,6 @@ const Navbar = ({
           style={({isActive}) => (isActive ? activeStyle : undefined)}
           to="/كل المنتجات"
           className={styles.linkPages}
-          onMouseOver={() => {
-            //setShow(true);
-          }}
-          onMouseOut={() => {
-            //setShow(false);
-          }}
         >
           {langaugesContext.langauge === "ar" ? "الأقسام" : "Sections"}
         </NavLink>
@@ -172,17 +164,3 @@ const Navbar = ({
 };
 
 export default Navbar;
-/* 
-<HiMenuAlt1
-          color="white"
-          size={30}
-          onClick={() => setNavBarModal(!navbarModal)}
-          className="cursor-pointer"
-        />
-*/
-
-/* 
-<span className="absolute top-[10px] right-[-20px] ">
-            <BsArrowDownShort color="black" />
-          </span>
-*/

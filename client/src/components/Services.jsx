@@ -2,18 +2,12 @@ import React from "react";
 import {useNavigate} from "react-router-dom";
 import {useLangauges} from "../contexts/Langauges";
 
-let dataServices = [
-  "Donec vitae odio nisl daplibus malesuda1",
-  "Donec vitae odio nisl daplibus malesuda2",
-  "Donec vitae odio nisl daplibus malesuda3",
-  "Donec vitae odio nisl daplibus malesuda4",
-];
-
 const Group = ({image, nameGroup}) => {
   const navigait = useNavigate();
   return (
     <figure
-      className=" max-w-[600px] h-[290px] relative drop-shadow-2xl my-4 transition duration-200 cursor-pointer z-40"
+      key={nameGroup}
+      className=" rounded-md max-w-[400px] h-[290px] relative drop-shadow-2xl my-4 transition duration-200 cursor-pointer z-40"
       onClick={() => navigait(`/${nameGroup}`)}
     >
       <img

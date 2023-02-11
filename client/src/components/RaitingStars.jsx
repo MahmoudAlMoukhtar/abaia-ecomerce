@@ -1,6 +1,6 @@
 import React, {useState} from "react";
-const StarRating = () => {
-  const [rating, setRating] = useState(0);
+
+const StarRating = ({rating, setRating}) => {
   const [hover, setHover] = useState(0);
   return (
     <div className="flex gap-1">

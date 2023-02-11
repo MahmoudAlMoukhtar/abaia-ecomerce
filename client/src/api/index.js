@@ -5,7 +5,6 @@ const API = axios.create({
 });
 //baseURL: "http://localhost:3001/api",
 API.interceptors.request.use(req => {
-  //console.log(localStorage.getItem("userEcommerce"));
   if (localStorage.getItem("userEcommerce")) {
     req.headers.Authorization = `Bearer ${
       JSON.parse(localStorage.getItem("userEcommerce")).token
@@ -13,17 +12,6 @@ API.interceptors.request.use(req => {
   }
   return req;
 });
-//CRUD POSTS
-export const fetchPosts = () => API.get("/posts");
-export const fetchPostById = id => API.get(`/posts/${id}`);
-export const createPosts = newPost => API.post("/posts", newPost);
-export const updatePost = (id, updates) => API.patch(`/posts/${id}`, updates);
-export const deletePost = id => API.delete(`/posts/${id}`);
-export const commentPost = (value, id) =>
-  API.post(`/posts/${id}/commentPost`, {value});
-export const deleteCommentPost = (idPost, idComment) =>
-  API.post(`/posts/${idPost}/commentPost/${idComment}`);
-//export const likePost = id => API.patch(`/posts/${id}/likePost`);
 
 //AUTH Operation
 export const updateUserById = (id, updates) => API.put(`/user/${id}`, updates);

@@ -9,9 +9,7 @@ export default function useFetch(url) {
   useEffect(() => {
     const init = async () => {
       try {
-        const {data} = await (url === "products"
-          ? api.fetchProducts()
-          : api.fetchPosts());
+        const {data} = await (url === "products" && api.fetchProducts());
         setData(data);
       } catch (e) {
         if (e) setError(e);

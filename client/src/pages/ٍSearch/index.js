@@ -1,16 +1,9 @@
-import React, {useEffect, useState} from "react";
-import Products from "../../components/Products";
-import Header from "../../common/Navbar";
-import MainHeader from "../../components/MainHeader";
-import {Link, useParams} from "react-router-dom";
-import {DataGrid} from "@material-ui/data-grid";
+import React, {useState} from "react";
+import {useParams} from "react-router-dom";
 import {Pagination} from "@material-ui/lab";
 import usePagination from "../../components/Pagination";
 import Product from "../../components/Product";
-import {BsCircle} from "react-icons/bs";
-import {FormControl, InputLabel, MenuItem, Select} from "@material-ui/core";
 import useFetch from "../../services/useFetch";
-import Spinner from "../../Spinner";
 
 const Counter = ({counter, setCounter}) => {
   return (
@@ -53,7 +46,7 @@ const Counter = ({counter, setCounter}) => {
   );
 };
 
-const SearchPage = ({addToCart, setNavBarModal}) => {
+const SearchPage = () => {
   const {data, loading, error} = useFetch("products");
   const [page, setPage] = useState(1);
   const [downCounter, setDownCounter] = useState(1);
@@ -90,15 +83,19 @@ const SearchPage = ({addToCart, setNavBarModal}) => {
   const filteredProducts = productsSort.filter(p => {
     if (filter.filterByCategory === "all") {
       return (
-        p.name
+        p.price >= downCounter &&
+        p.price <= upCounter &&
+        (p.name
           .toLowerCase()
           .includes(filter.filterDataBySearch.toLowerCase()) ||
-        p.description
-          .toLowerCase()
-          .includes(filter.filterDataBySearch.toLowerCase())
+          p.description
+            .toLowerCase()
+            .includes(filter.filterDataBySearch.toLowerCase()))
       );
     } else {
       return (
+        p.price >= downCounter &&
+        p.price <= upCounter &&
         p.category === filter.filterByCategory &&
         (p.name
           .toLowerCase()
@@ -122,14 +119,11 @@ const SearchPage = ({addToCart, setNavBarModal}) => {
   if (loading)
     return <h1 className="text-center font-bold text-5xl my-40">Loading...</h1>;
 
-  // console.log(uniqueCategories);
-  // console.log(productsSort);
-
   return (
     <div className="flex flex-col gap-6 text-end px-2 sm:px-8 md:px-20">
       <div className="flex justify-center items-end flex-col gap-6 my-10">
         <h3 className="text-3xl">بحث</h3>
-        <div className="flex flex-col items-center gap-2 bg-gray-100 w-full p-8 rounded">
+        <div className="flex flex-col items-center gap-6 bg-gray-100 w-full p-8 rounded">
           <label>كلمة البحث</label>
           <input
             type="text"
@@ -150,11 +144,11 @@ const SearchPage = ({addToCart, setNavBarModal}) => {
             </label>
           </div>
           {showDetailSearch && (
-            <div className="flex flex-col gap-4 items-center justify-center">
-              <div className="flex flex-col items-end">
+            <div className="flex flex-col gap-8 items-center justify-center">
+              <div className="flex flex-row-reverse items-center gap-2">
                 <label>الأقسام</label>
                 <select
-                  className="cursor-pointer w-96 text-end"
+                  className="cursor-pointer w-96 text-end h-8 rounded shadow-md"
                   onChange={e =>
                     setFilter({...filter, filterByCategory: e.target.value})
                   }

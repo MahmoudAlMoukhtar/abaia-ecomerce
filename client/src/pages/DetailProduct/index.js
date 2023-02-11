@@ -1,18 +1,15 @@
 import React, {useEffect, useState} from "react";
 import {useParams, useNavigate} from "react-router-dom";
-import Spinner from "../Spinner";
-import PageNotFound from "../PageNotFound";
-import useDetailFetch from "../services/useDetailFetch";
 import {MdFavoriteBorder} from "react-icons/md";
+import useDetailFetch from "../../services/useDetailFetch";
+import ProductsMostSell from "../../components/ProductsMostSell";
+import ProductsMostRevelant from "../../components/ProductsMostRevelant";
+import StarRating from "../../components/RaitingStars";
 import {GrStar} from "react-icons/gr";
-import * as api from "../api/index";
-import jwt_decode from "jwt-decode";
-import ProductsMostSell from "../components/ProductsMostSell";
-
-import {Box, InputLabel, MenuItem, Select, TextField} from "@material-ui/core";
 import {Rating} from "@material-ui/lab";
-import StarRating from "./RaitingStars";
-import ProductsMostRevelant from "./ProductsMostRevelant";
+import {Box, InputLabel, MenuItem, Select} from "@material-ui/core";
+import * as api from "../../api/index";
+import jwt_decode from "jwt-decode";
 
 const Counter = ({counter, setCounter}) => {
   return (
@@ -56,35 +53,37 @@ const Selectes = ({standard, setStandard, product}) => {
   return (
     <div className="flex flex-col gap-2 items-end">
       <div className="flex flex-col items-end">
-        <InputLabel id="demo-simple-select-helper-label">القياس</InputLabel>
-        <Select
-          className="w-40 h-8"
-          value={standard.size}
-          onChange={e => setStandard({...standard, size: e.target.value})}
-          displayEmpty
-          inputProps={{"aria-label": "Without label"}}
-        >
-          {product.sizes.length > 0 ? (
-            product.sizes.map(s => (
-              <MenuItem value={s} key={s}>
-                {s}
-              </MenuItem>
-            ))
-          ) : (
-            <div>
-              <MenuItem value={"S"}>S</MenuItem>
-              <MenuItem value={"M"}>M</MenuItem>
-              <MenuItem value={"XL"}>XL</MenuItem>
-              <MenuItem value={"XXL"}>XXL</MenuItem>
-              <MenuItem value={"3XL"}>3XL</MenuItem>
-            </div>
-          )}
-        </Select>
+        <div className="flex flex-row-reverse justify-between gap-2 w-80">
+          <InputLabel id="demo-simple-select-helper-label">القياس</InputLabel>
+          <select
+            className="w-40 h-8 border-[1px] border-gray-400 rounded cursor-pointer transtion duration-200"
+            value={standard.size}
+            onChange={e => setStandard({...standard, size: e.target.value})}
+            displayEmpty
+            inputProps={{"aria-label": "Without label"}}
+          >
+            {product.sizes.length > 0 ? (
+              product.sizes.map(s => (
+                <MenuItem value={s} key={s}>
+                  {s}
+                </MenuItem>
+              ))
+            ) : (
+              <React.Fragment>
+                <option value={"S"}>S</option>
+                <option value={"M"}>M</option>
+                <option value={"XL"}>XL</option>
+                <option value={"XXL"}>XXL</option>
+                <option value={"3XL"}>3XL</option>
+              </React.Fragment>
+            )}
+          </select>
+        </div>
       </div>
-      <div className="flex flex-col items-end">
+      <div className="flex flex-row-reverse justify-between gap-2 w-80">
         <InputLabel id="demo-simple-select-helper-label">الطول</InputLabel>
-        <Select
-          className="w-40 h-8"
+        <select
+          className="w-40 h-8 border-[1px] border-gray-400 rounded cursor-pointer transtion duration-200"
           value={standard.length}
           onChange={e => setStandard({...standard, length: e.target.value})}
           displayEmpty
@@ -97,22 +96,22 @@ const Selectes = ({standard, setStandard, product}) => {
               </MenuItem>
             ))
           ) : (
-            <div>
-              <MenuItem value={50}>50</MenuItem>
-              <MenuItem value={60}>60</MenuItem>
-              <MenuItem value={70}>70</MenuItem>
-              <MenuItem value={80}>80</MenuItem>
-              <MenuItem value={90}>100</MenuItem>
-            </div>
+            <React.Fragment>
+              <option value={50}>50</option>
+              <option value={60}>60</option>
+              <option value={70}>70</option>
+              <option value={80}>80</option>
+              <option value={90}>100</option>
+            </React.Fragment>
           )}
-        </Select>
+        </select>
       </div>
-      <div className="flex flex-col items-end">
+      <div className="flex flex-row-reverse justify-between gap-2 w-80">
         <InputLabel id="demo-simple-select-helper-label">
           التصميم الأمامي
         </InputLabel>
-        <Select
-          className="w-40 h-8"
+        <select
+          className="w-40 h-8 border-[1px] border-gray-400 rounded cursor-pointer transtion duration-200"
           value={standard.design}
           onChange={e => setStandard({...standard, design: e.target.value})}
           displayEmpty
@@ -125,12 +124,12 @@ const Selectes = ({standard, setStandard, product}) => {
               </MenuItem>
             ))
           ) : (
-            <div>
-              <MenuItem value={"مفتوحة"}>مفتوحة</MenuItem>
-              <MenuItem value={"مقفلة"}>مقفلة</MenuItem>
-            </div>
+            <React.Fragment>
+              <option value={"مفتوحة"}>مفتوحة</option>
+              <option value={"مقفلة"}>مقفلة</option>
+            </React.Fragment>
           )}
-        </Select>
+        </select>
       </div>
     </div>
   );
@@ -143,33 +142,29 @@ const DetailProduct = ({favoraitProducts, setFavoraitProducts}) => {
     jwt_decode(JSON.parse(localStorage.getItem("userEcommerce")).token);
 
   //react router
-  const {id} = useParams();
+  const {id, category} = useParams();
   const navigate = useNavigate();
   //state managment
   const {data: product, loading, error} = useDetailFetch("product", id);
   const [mainImage, setMainImage] = useState(product.image);
-  const [ratinge, setRating] = useState(0);
+  const [rating, setRating] = useState(0);
   const [favoraitShow, setFavoraitShow] = useState(false);
+  const [counter, setCounter] = useState(0);
   const [standard, setStandard] = useState({
     size: "",
     length: "",
     design: "",
   });
-  const [counter, setCounter] = useState(0);
   useEffect(() => {
     setMainImage(product.image);
-    console.log("product");
     if (userJson) {
       const makeRequest = async () => {
         const res = await api.fetchFavoraitProducts(user.id);
         setFavoraitProducts(res.data);
-        //   if (res.data[0]._id === product._id) {
-        //     //console.log(findeFav);
-        //   }
       };
       makeRequest();
     }
-  }, [product, favoraitShow]);
+  }, [product, favoraitShow, id, category]);
   //
   if (loading)
     return <h1 className="text-center font-bold text-5xl my-40">Loading...</h1>;
@@ -190,12 +185,12 @@ const DetailProduct = ({favoraitProducts, setFavoraitProducts}) => {
           id="textDetailProduct"
           className="w-full p-2 text-sm text-end w-1/2"
         >
-          <div className="flex flex-col gap-6 items-end">
+          <div className="flex flex-col gap-4 items-end">
             <div className="flex justify-between items-center w-full">
               {userJson && (
                 <MdFavoriteBorder
                   size={40}
-                  className="cursor-pointer bg-white shadow-lg p-2"
+                  className="cursor-pointer bg-white shadow-md shadow-gray-400 p-2 rounded-full"
                   color={favoraitShow ? "red" : "black"}
                   onClick={async () => {
                     if (user) {
@@ -222,10 +217,10 @@ const DetailProduct = ({favoraitProducts, setFavoraitProducts}) => {
             <p>LUX-5</p>
             <p>15 - 10 days</p>
 
-            <StarRating />
-            <p className="font-semibold">Reviews|{0}</p>
+            <StarRating rating={rating} setRating={setRating} />
+            <p className="font-semibold">Reviews|{rating}</p>
             <p>{product.description}</p>
-            <p>({product.offer})</p>
+            {product.offer && <p>({product.offer})</p>}
             <Selectes
               standard={standard}
               setStandard={setStandard}

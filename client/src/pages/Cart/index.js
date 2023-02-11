@@ -1,13 +1,12 @@
 import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import CartItem from "../../components/CartItem";
-import * as api from "../../api/index";
-import Spinner from "../../Spinner";
-import Pay from "../../components/Pay";
 import GoSellDemo from "../../components/GoSellDemo";
-//import useFetchAll from "../../services/useFetchAll";
+import * as api from "../../api/index";
 import jwt_decode from "jwt-decode";
 import {useLangauges} from "../../contexts/Langauges";
+//import useFetchAll from "../../services/useFetchAll";
+
 const CartPage = ({updateQuantity, cartProducts, setCartProducts}) => {
   const langaugesContext = useLangauges();
   const user = jwt_decode(

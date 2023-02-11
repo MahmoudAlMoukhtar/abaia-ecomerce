@@ -1,12 +1,9 @@
 import React from "react";
 import useFetch from "../services/useFetch";
 import Product from "./Product";
+
 const ProductsMostSell = () => {
   const {data, loading, error} = useFetch("products");
-  //const [filterData, setFilterData] = useState("auto");
-
-  //const categoriesPrds = data?.map(p => p.category);
-  //const uniqueCategories = [...new Set(categoriesPrds)];
 
   const productsSort = data?.sort((a, b) => {
     if (a.numberSell > b.numberSell) {

@@ -1,6 +1,7 @@
 import React from "react";
 import useFetch from "../services/useFetch";
 import Product from "./Product";
+
 const ProductsMostRevelant = ({category}) => {
   const {data, loading, error} = useFetch("products");
 

@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import CartItem from "../../components/CartItem";
-import * as api from "../../api/index";
-import Spinner from "../../Spinner";
-import Pay from "../../components/Pay";
 import GoSellDemo from "../../components/GoSellDemo";
-//import useFetchAll from "../../services/useFetchAll";
 import jwt_decode from "jwt-decode";
+import * as api from "../../api/index";
+//import useFetchAll from "../../services/useFetchAll";
+
 const CartPage = ({updateQuantity}) => {
   const user = jwt_decode(
     JSON.parse(localStorage.getItem("userEcommerce")).token

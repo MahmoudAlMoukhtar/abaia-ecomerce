@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
-import CartItem from "../../components/CartItem";
-import * as api from "../../api/index";
 import {useLangauges} from "../../contexts/Langauges";
+import * as api from "../../api/index";
 
 const styles = {
   cardItemCart:

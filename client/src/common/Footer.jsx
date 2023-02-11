@@ -1,18 +1,19 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import {useLangauges} from "../contexts/Langauges";
+
 const Footer = () => {
   const langaugesContext = useLangauges();
   return (
     <div
       className={
         langaugesContext.langauge === "ar"
-          ? "relative  flex items-center justify-end md:items-start md:justify-between flex-wrap lg:flex-nowrap gap-6 w-full px-8 xl:px-20 py-8 md:text-end text-[#6A6A6A]"
-          : "relative  flex items-center justify-end md:items-start md:justify-between flex-wrap lg:flex-nowrap gap-6 w-full px-8 xl:px-20 py-8 md:text-end text-[#6A6A6A]"
+          ? "relative  flex items-start justify-center gap-20 md:items-start md:justify-between flex-wrap lg:flex-nowrap w-full px-8 xl:px-20 py-8 md:text-end text-[#6A6A6A] mt-10"
+          : "relative  flex items-start justify-center gap-20 md:items-start md:justify-between flex-wrap lg:flex-nowrap w-full px-8 xl:px-20 py-8 md:text-end text-[#6A6A6A] mt-10"
       }
     >
-      <div className="flex flex-col justify-end items-end gap-4">
-        <h5 className="flex flex-col justify-end items-end">
+      <div className="flex flex-col items-center md:justify-end md:items-end gap-4">
+        <h5 className="flex flex-col justify-center items-center md:justify-end md:items-end">
           {langaugesContext.langauge === "ar" ? "تابعنا" : "Follow us"}
           <div className="flex justify-center items-center gap-2 text-gray-400 tracking-[-3px] ">
             <div className="w-10 h-[1px] bg-gray-400" />
@@ -34,8 +35,8 @@ const Footer = () => {
           {langaugesContext.langauge === "ar" ? "اشترك" : "Subscribe"}
         </button>
       </div>
-      <div className="flex flex-col justify-end items-end gap-4">
-        <h5 className="flex flex-col justify-end items-end">
+      <div className="flex flex-col items-center md:justify-end md:items-end gap-4">
+        <h5 className="flex flex-col justify-center items-center md:justify-end md:items-end">
           {langaugesContext.langauge === "ar" ? "حسابي" : "My account"}
 
           <div className="flex justify-center items-center gap-2 text-gray-400 tracking-[-3px] ">
@@ -44,7 +45,7 @@ const Footer = () => {
             <div className="w-10 h-[1px] bg-gray-400" />
           </div>
         </h5>
-        <ul className="flex flex-col gap-2 items-end justify-end text-sm">
+        <ul className="flex flex-col gap-2 justify-center items-center md:justify-end md:items-end text-sm">
           <Link
             to="/account"
             className="hover:border-r-4 border-black transtion duration-100 px-2"
@@ -71,8 +72,8 @@ const Footer = () => {
           </Link>
         </ul>
       </div>
-      <div className="flex flex-col justify-end items-end gap-4">
-        <h5 className="flex flex-col justify-end items-end">
+      <div className="flex flex-col items-center md:justify-end md:items-end gap-4">
+        <h5 className="flex flex-col justify-center items-center md:justify-end md:items-end">
           {langaugesContext.langauge === "ar" ? "التسوق الالكتروني" : "Shop"}
 
           <div className="flex justify-center items-center gap-2 text-gray-400 tracking-[-3px] ">
@@ -81,7 +82,7 @@ const Footer = () => {
             <div className="w-10 h-[1px] bg-gray-400" />
           </div>
         </h5>
-        <ul className="flex flex-col gap-2 items-end justify-end text-sm">
+        <ul className="flex flex-col gap-2 justify-center items-center md:justify-end md:items-end text-sm">
           <Link
             to="/"
             className="hover:border-r-4 border-black transtion duration-100 px-2"
@@ -106,8 +107,8 @@ const Footer = () => {
           </Link>
         </ul>
       </div>
-      <div className="flex flex-col justify-end items-end gap-4">
-        <h5 className="flex flex-col justify-end items-end">
+      <div className="flex flex-col items-center md:justify-end md:items-end gap-4">
+        <h5 className="flex flex-col justify-center items-center md:justify-end md:items-end">
           {langaugesContext.langauge === "ar" ? "معلومات" : "Information"}
 
           <div className="flex justify-center items-center gap-2 text-gray-400 tracking-[-3px] ">
@@ -116,7 +117,7 @@ const Footer = () => {
             <div className="w-10 h-[1px] bg-gray-400" />
           </div>
         </h5>
-        <ul className="flex flex-col gap-2 items-end justify-end text-sm">
+        <ul className="flex flex-col gap-2 justify-center items-center md:justify-end md:items-end text-sm">
           <p> الأفنيوز المرحلة الثانية - الري</p>
           <p> سوق الكوت - الفحيحيل</p>
 

@@ -1,12 +1,6 @@
 import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import * as api from "../../api/index";
-const styles = {
-  navLink:
-    "flex justify-end gap-2 items-center py-4 border-b-[0.5px] border-gray-600 w-full pr-2",
-  filed:
-    "relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm",
-};
 
 const initialState = {
   oldPassword: "",
@@ -26,7 +20,6 @@ const MyPasswordChange = ({user}) => {
   const [saveError, setSaveError] = useState(null);
   const [touche, setTouche] = useState({});
   const [status, setStatus] = useState(STATUS.IDLE);
-  const navigait = useNavigate();
 
   //Derived state
   const errors = getErrors(formData);

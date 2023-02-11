@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {GoSell} from "@tap-payments/gosell";
 import * as api from "../api/index";
+
 class GoSellDemo extends Component {
   constructor(props) {
     super(props);

@@ -1,7 +1,5 @@
 import React, {useEffect, useState} from "react";
-import Spinner from "../Spinner";
 import useFetch from "../services/useFetch";
-import PageNotFound from "../PageNotFound";
 import SwiperCore, {
   Navigation,
   Pagination,
@@ -37,21 +35,6 @@ export default function ProductsSlider() {
       setAutoPlaySlider(false);
     };
   }, []);
-
-  // if (error) throw error;
-  // if (loading) return <Spinner />;
-
-  // const productsSort = products
-  //   .sort((a, b) => {
-  //     if (a.numberSell > b.numberSell) {
-  //       return -1;
-  //     } else if (a.numberSell < b.numberSell) {
-  //       return 1;
-  //     } else {
-  //       return 0;
-  //     }
-  //   })
-  //   .reverse();
 
   return (
     <div>

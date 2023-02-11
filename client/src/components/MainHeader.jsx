@@ -1,5 +1,4 @@
 import React from "react";
-
 import ProductsSlider from "./ProductsSlider";
 
 const MainHeader = () => {

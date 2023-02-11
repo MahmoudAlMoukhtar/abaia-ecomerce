@@ -1,6 +1,5 @@
 import {useState, useEffect} from "react";
 import * as api from "../api/index";
-//local-server
 
 export default function useDetailFetch(url, id) {
   const [data, setData] = useState({});
@@ -10,11 +9,8 @@ export default function useDetailFetch(url, id) {
   useEffect(() => {
     const init = async () => {
       try {
-        const {data} = await (url === "product"
-          ? api.fetchProductById(id)
-          : api.fetchPostById(id));
+        const {data} = await (url === "product" && api.fetchProductById(id));
         setData(data);
-        //console.log(data);
       } catch (e) {
         if (e) setError(e);
       } finally {
@@ -22,7 +18,7 @@ export default function useDetailFetch(url, id) {
       }
     };
     init();
-  }, []);
+  }, [id]);
 
   return {data, error, loading};
 }

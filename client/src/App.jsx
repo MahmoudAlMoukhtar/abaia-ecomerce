@@ -1,30 +1,23 @@
 import React, {useEffect, useState} from "react";
 import {Routes, Route} from "react-router-dom";
-//import AboutPage from "./pages/About Us";
-//import CheckoutPage from "./pages/Checkout";
 import CartPage from "./pages/Cart";
-import DetailProduct from "./components/DetailProduct";
-import ContactPage from "./pages/Contact";
+import DetailProduct from "./pages/DetailProduct/index";
 import ShopPage from "./pages/Shop";
 import HomePage from "./pages/Home";
 import Footer from "../src/common/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 import NavbarModal from "./components/NavModal";
 import Navbar from "./common/Navbar";
-import Auth from "./components/Auth";
+import Auth from "./pages/Auth";
 import AboutPage from "./pages/About Us";
-import Pay from "./components/Pay";
-import AuthRegister from "./components/register";
+import AuthRegister from "./pages/Register/Register";
 import Profile from "./pages/Profile/index.js";
-import MyData from "./pages/Profile/MyData";
-import jwt_decode from "jwt-decode";
 import PrivaitRoute from "./components/PrivaitRoute";
-import {List, ListItem, ListItemText} from "@material-ui/core";
 import SearchPage from "./pages/ٍSearch/index";
 import {LangaugesProvider} from "./contexts/Langauges";
-export default function App() {
+
+const App = () => {
   const [navBarModal, setNavBarModal] = useState(false);
-  const [show, setShow] = useState(false);
   const [cartProducts, setCartProducts] = useState();
   const [favoraitProducts, setFavoraitProducts] = useState();
   return (
@@ -35,8 +28,6 @@ export default function App() {
           <Navbar
             setNavBarModal={setNavBarModal}
             navbarModal={navBarModal}
-            show={show}
-            setShow={setShow}
             cartProducts={cartProducts}
             favoraitProducts={favoraitProducts}
           />
@@ -44,7 +35,6 @@ export default function App() {
             setNavBarModal={setNavBarModal}
             navbarModal={navBarModal}
           />
-
           <Routes>
             <Route
               path="/"
@@ -106,43 +96,6 @@ export default function App() {
       </div>
     </React.Fragment>
   );
-}
-/* 
-<Footer />
-*/
+};
 
-// <Route
-//   path="/:category"
-//   element={
-//     <ShopPage addToCart={addToCart} setNavBarModal={setNavBarModal} />
-//   }
-// />
-// <Route
-//   path="/blogs/:id"
-//   element={<DetailBlog setNavBarModal={setNavBarModal} />}
-// />
-// <Route
-//   path="/blogs"
-//   element={<BlogsPage page="blogs" setNavBarModal={setNavBarModal} />}
-// />
-// <Route
-//   path="/contact"
-//   element={<ContactPage setNavBarModal={setNavBarModal} />}
-// />
-// <Route
-//   path="/:category/:id"
-//   element={
-//     <DetailProduct
-//       addToCart={addToCart}
-//       updateQuantity={updateQuantity}
-//       setNavBarModal={setNavBarModal}
-//     />
-//   }
-// />
-//
-// <Route path="/about" element={<AboutPage />} />
-// <Route
-//   path="/cart"
-//   element={<CartPage cart={cart} updateQuantity={updateQuantity} />}
-// />
-// <Route path="/checkout" element={<Pay />} />
+export default App;

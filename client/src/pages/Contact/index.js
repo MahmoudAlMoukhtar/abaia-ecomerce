@@ -1,5 +1,4 @@
 import React from "react";
-import Header from "../../common/Navbar";
 import MainHeader from "../../components/MainHeader";
 import {FiSend, FiPhoneCall} from "react-icons/fi";
 import {MdOutlineEmail} from "react-icons/md";

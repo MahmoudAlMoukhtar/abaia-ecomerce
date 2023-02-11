@@ -1,5 +1,5 @@
 import React from "react";
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 const styles = {
   cardProduct:
@@ -9,7 +9,6 @@ const styles = {
 };
 
 const Product = ({product: p}) => {
-  const navigate = useNavigate();
   return (
     <Link
       to={`/${p.category}/${p._id}`}

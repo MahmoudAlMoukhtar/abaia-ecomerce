@@ -115,12 +115,12 @@ figure:hover+span {
     -webkit-transform: scale(1);
     transform: scale(1);
     -webkit-transition: .3s ease-in-out;
-    transition: 1s ease-in-out;
+    transition: 0.5s ease-in-out;
 }
 
 .hover01 figure:hover img {
-    -webkit-transform: scale(1.2);
-    transform: scale(1.2);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
 }
 
 
